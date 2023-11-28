@@ -1,0 +1,25 @@
+:root {
+}
+
+/* CABECERA */
+header{
+  margin-top: 40px;
+}
+.contenedor-titulo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  width: 98vw;
+  overflow: hidden;
+}
+.titulo {
+  margin: 0;
+  padding: 0 10px;
+  font-family: poppins;
+  font-size: 70px;
+  color: grey;
+}
+.segunda-palabra-titulo {
+  color: lightslategrey;
+}
