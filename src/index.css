@@ -2,8 +2,9 @@
 }
 
 /* HEADER */
-header{
+header {
   margin-top: 40px;
+  margin-bottom: 40px;
 }
 .contenedor-titulo {
   display: flex;
@@ -26,10 +27,12 @@ header{
 
 /* MAIN */
 
+/* Entrada tareas */
+
 main{
-  margin-top: 40px;
+  padding: 20px 0;
 }
-.contenedor-agregar-tareas{
+.contenedor-agregar-tareas {
   display: flex;
   margin: auto;
   width: 80%;
