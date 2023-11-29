@@ -70,6 +70,8 @@ main{
 .contenedor-tarea {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
+  width: 20%;
 }
 .nombre-tarea {
   font-family: sans-serif;
