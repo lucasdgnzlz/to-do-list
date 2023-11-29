@@ -38,3 +38,37 @@ main{
   width: 80%;
   max-width: 550px;
 }
+
+/* Lista tareas */
+
+.contenedor-lista-tareas {
+  display: flex;
+  margin: auto;
+  width: 80%;
+  max-width: 550px;
+}
+.lista-tareas {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.tarea {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px 0;
+  padding: 5px 10px;
+  height: 50px;
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  cursor: pointer;
+  list-style:none;
+}
+.titulo-tarea {
+  font-family: sans-serif;
+  color: grey;
+  margin: 0;
+}
+.estado-tarea {
+  margin: 0 5px;
+}
