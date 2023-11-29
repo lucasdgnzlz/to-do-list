@@ -55,20 +55,43 @@ main{
 .tarea {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   margin: 10px 0;
   padding: 5px 10px;
   height: 50px;
   border: 1px solid lightgray;
+  border-right: 2px solid lightgrey;
+  border-top: 1.7px solid lightgrey;
   border-radius: 6px;
   cursor: pointer;
   list-style:none;
 }
-.titulo-tarea {
+.contenedor-tarea {
+  display: flex;
+  flex-direction: row;
+}
+.nombre-tarea {
   font-family: sans-serif;
   color: grey;
   margin: 0;
 }
 .estado-tarea {
   margin: 0 5px;
+}
+.contenedor-opciones-tarea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.boton-opciones-tarea {
+  border: none;
+}
+.icono-opciones-tareas {
+  color: grey;
+}
+.icono-opciones-tareas:hover {
+  color: black;
+  transition-duration: 0.3s;
 }
