@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script src="https://kit.fontawesome.com/ca6fdd5c59.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet" />
-    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <title>To-Do List</title>
   </head>
   <body>
@@ -24,26 +24,69 @@
       <div class="contenedor-tareas">
         <div class="contenedor-agregar-tareas">
           <div class="input-group mb-3">
-            <input type="text" class="form-control entrada-nueva-tarea" placeholder="Agregá una tarea!" aria-label="Agregar tarea" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="boton-agregar-tarea"><i class="fa-solid fa-plus"></i></button>
+            <input
+              type="text"
+              class="form-control entrada-nueva-tarea"
+              placeholder="Agregá una tarea!"
+              aria-label="Agregar tarea"
+              aria-describedby="button-addon2"
+            />
+            <button class="btn btn-outline-secondary" type="button" id="boton-agregar-tarea">
+              <i class="fa-solid fa-plus"></i>
+            </button>
           </div>
         </div>
 
         <div class="contenedor-lista-tareas">
           <ul class="lista-tareas">
             <li class="tarea">
-              <input class="form-check-input estado-tarea" type="checkbox" value="" id="flexCheckDefault">
-              <p class="titulo-tarea">Tarea 1</p>
+              <div class="contenedor-tarea">
+                <input class="form-check-input estado-tarea" type="checkbox" value="" id="flexCheckDefault" />
+                <p class="nombre-tarea">Tarea 1</p>
+              </div>
+
+              <div class="contenedor-opciones-tarea">
+                <button type="button" class="boton-opciones-tarea">
+                  <i class="fa-solid fa-ellipsis icono-opciones-tareas"></i>
+                </button>
+              </div>
             </li>
             <li class="tarea">
-              <input class="form-check-input estado-tarea" type="checkbox" value="" id="flexCheckDefault">
-              <p class="titulo-tarea">Tarea 2</p></li>
+              <div class="contenedor-tarea">
+                <input class="form-check-input estado-tarea" type="checkbox" value="" id="flexCheckDefault" />
+                <p class="nombre-tarea">Tarea 2</p>
+              </div>
+
+              <div class="contenedor-opciones-tarea">
+                <button type="button" class="boton-opciones-tarea">
+                  <i class="fa-solid fa-ellipsis icono-opciones-tareas"></i>
+                </button>
+              </div>
+            </li>
             <li class="tarea">
-              <input class="form-check-input estado-tarea" type="checkbox" value="" id="flexCheckDefault">
-              <p class="titulo-tarea">Tarea 3</p></li>
+              <div class="contenedor-tarea">
+                <input class="form-check-input estado-tarea" type="checkbox" value="" id="flexCheckDefault" />
+                <p class="nombre-tarea">Tarea 3</p>
+              </div>
+
+              <div class="contenedor-opciones-tarea">
+                <button type="button" class="boton-opciones-tarea">
+                  <i class="fa-solid fa-ellipsis icono-opciones-tareas"></i>
+                </button>
+              </div>
+            </li>
             <li class="tarea">
-              <input class="form-check-input estado-tarea" type="checkbox" value="" id="flexCheckDefault">
-              <p class="titulo-tarea">Tarea 4</p></li>
+              <div class="contenedor-tarea">
+                <input class="form-check-input estado-tarea" type="checkbox" value="" id="flexCheckDefault" />
+                <p class="nombre-tarea">Tarea 4</p>
+              </div>
+
+              <div class="contenedor-opciones-tarea">
+                <button type="button" class="boton-opciones-tarea">
+                  <i class="fa-solid fa-ellipsis icono-opciones-tareas"></i>
+                </button>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
