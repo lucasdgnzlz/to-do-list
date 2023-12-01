@@ -2,6 +2,7 @@
 }
 
 /* HEADER */
+
 header {
   margin-top: 40px;
   margin-bottom: 40px;
@@ -29,7 +30,7 @@ header {
 
 /* Entrada tareas */
 
-main{
+main {
   padding: 20px 0;
 }
 .contenedor-agregar-tareas {
@@ -61,19 +62,19 @@ main{
   padding: 5px 10px;
   height: 50px;
   border: 1px solid lightgray;
-  border-right: 2px solid lightgrey;
-  border-top: 1.7px solid lightgrey;
   border-radius: 6px;
   cursor: pointer;
-  list-style:none;
+  list-style: none;
 }
-.contenedor-tarea {
+.contenedor-estado-tarea {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width: 20%;
+  width: max-content;
+  max-width: 80%;
 }
 .nombre-tarea {
+  text-align: start;
   font-family: sans-serif;
   color: grey;
   margin: 0;
@@ -84,10 +85,12 @@ main{
 .contenedor-opciones-tarea {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   height: 100%;
 }
 .boton-opciones-tarea {
+  background-color: transparent;
   border: none;
 }
 .icono-opciones-tareas {
@@ -96,4 +99,52 @@ main{
 .icono-opciones-tareas:hover {
   color: black;
   transition-duration: 0.3s;
+}
+.bloque-opciones-tareas,
+.bloque-borrar-tarea {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5px;
+  height: 50px;
+}
+.bloque-borrar-tarea {
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+.bloque-borrar-tarea:hover {
+  border: 1.5px solid lightgrey;
+  border-radius: 10px;
+  transition-duration: 0.3s;
+}
+.opciones-tareas {
+  display: flex;
+  align-items: center;
+  height: 80%;
+  width: 98%;
+  padding: 0 10px;
+  border: 0px solid black;
+  border-radius: 10px;
+}
+.prioridad-3 {
+  background-color: #f8d7da;
+}
+.prioridad-3:hover {
+  background-color: #f38f97;
+  transition-duration: 0.2s;
+}
+.prioridad-2 {
+  background-color: #cfe2ff;
+}
+.prioridad-2:hover {
+  background-color: #79afff;
+  transition-duration: 0.2s;
+}
+.prioridad-1 {
+  background-color: #d1e7dd;
+}
+.prioridad-1:hover {
+  background-color: #6ae3ad;
+  transition-duration: 0.2s;
 }
