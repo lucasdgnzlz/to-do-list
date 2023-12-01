@@ -9,7 +9,7 @@ function agregaEventoBoton(){
 	}, 1000);
 }
 
-$botonAgregarTarea.addEventListener("mouseover", () => {
+$botonAgregarTarea.addEventListener("click", () => {
 	agregaEventoBoton();
 });
 // Evento flip del botón agregar tarea
