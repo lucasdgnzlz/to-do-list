@@ -22,9 +22,11 @@ $botonAgregarTarea.addEventListener(("click"), () => {
 	const error = validarTituloNuevaTarea(tituloNuevaTarea);
 
 	if(error !== "") {
-		console.error(error);
+		mostrarErrorTituloTarea(error);
+		return false;
 	} else {
 		agregarNuevaTarea(tituloNuevaTarea);
+		borrarErrorTituloTarea();
 	}
 });
 
@@ -131,3 +133,22 @@ function validarTituloNuevaTarea(tituloNuevaTarea){
 }
 
 // Agrega tareas al apretar el botón correspondiente //
+
+function mostrarErrorTituloTarea(error){
+	const $entradaTitulo = document.querySelector(".entrada-nueva-tarea");
+	$entradaTitulo.classList.add("is-invalid");
+
+	const $contenedorMensajeError = document.querySelector(".contenedor-mensaje-error");
+	$contenedorMensajeError.id = "";
+
+	const $mensajeErrorTituloTarea = document.querySelector(".texto-error-titulo-tarea");
+	$mensajeErrorTituloTarea.textContent = error;
+}
+
+function borrarErrorTituloTarea(){
+	const $entradaTitulo = document.querySelector(".entrada-nueva-tarea");
+	$entradaTitulo.classList.remove("is-invalid");
+
+	const $contenedorMensajeError = document.querySelector(".contenedor-mensaje-error");
+	$contenedorMensajeError.id = "oculto";
+}
