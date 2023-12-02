@@ -35,9 +35,26 @@ main {
 }
 .contenedor-agregar-tareas {
   display: flex;
+  flex-direction: column;
   margin: auto;
   width: 80%;
   max-width: 550px;
+}
+.contenedor-mensaje-error{
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.icono-error-titulo{
+  color: red;
+  font-size: 17px;
+  margin: 0 5px;
+}
+.texto-error-titulo-tarea{
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0 5px;
+  color: red;
 }
 
 /* Lista tareas */
@@ -147,4 +164,8 @@ main {
 .prioridad-1:hover {
   background-color: #6ae3ad;
   transition-duration: 0.2s;
+}
+
+#oculto {
+  display: none;
 }
