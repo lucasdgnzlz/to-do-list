@@ -159,7 +159,6 @@ const $contenedorTareas = document.querySelector(".lista-tareas");
 
 $contenedorTareas.addEventListener(("click"), (e) => {
 	const $tareaSeleccionada = e.target.closest(".tarea");
-	console.log($tareaSeleccionada);
 
 	if(e.target.classList.contains("opcion-prioridad-3")){
 		const nivelDePrioridad = "prioridad-3";
