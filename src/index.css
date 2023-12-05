@@ -143,6 +143,7 @@ main {
   padding: 0 10px;
   border: 0px solid black;
   border-radius: 10px;
+  user-select: none;
 }
 .opcion-prioridad-3 {
   background-color: #f8d7da;
