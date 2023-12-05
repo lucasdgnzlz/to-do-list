@@ -167,14 +167,17 @@ function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
 		const nivelDePrioridad = "prioridad-3";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 		cambiarColorNombreTareas($tareaSeleccionada);
+		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
 	} else if(e.target.classList.contains("opcion-prioridad-2")){
 		const nivelDePrioridad = "prioridad-2";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 		cambiarColorNombreTareas($tareaSeleccionada);
+		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
 	} else if(e.target.classList.contains("opcion-prioridad-1")){
 		const nivelDePrioridad = "prioridad-1";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 		cambiarColorNombreTareas($tareaSeleccionada);
+		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
 	} else if(e.target.classList.contains("borrar-tarea")) {
 		const $bloqueEliminarTarea = document.querySelector(".bloque-borrar-tarea");
 		console.log($bloqueEliminarTarea);
@@ -205,5 +208,17 @@ function cambiarColorNombreTareas($tareaSeleccionada) {
 		$nombreTarea.style.color = "#fff";
 	} else if($tareaSeleccionada.classList.contains("prioridad-1")) {
 		$nombreTarea.style.color = "#808080";
+	}
+}
+
+function cambiarColorIconoOpcionesTareas($tareaSeleccionada) {
+	const $iconoOpcionesTarea = $tareaSeleccionada.querySelector(".icono-opciones-tareas");
+
+	if($tareaSeleccionada.classList.contains("prioridad-3")) {
+		$iconoOpcionesTarea.style.color = "#fff";
+	} else if($tareaSeleccionada.classList.contains("prioridad-2")) {
+		$iconoOpcionesTarea.style.color = "#fff";
+	} else if($tareaSeleccionada.classList.contains("prioridad-1")) {
+		$iconoOpcionesTarea.style.color = "#808080";
 	}
 }
