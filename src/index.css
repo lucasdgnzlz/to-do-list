@@ -144,26 +144,36 @@ main {
   border: 0px solid black;
   border-radius: 10px;
 }
-.prioridad-3 {
+.opcion-prioridad-3 {
   background-color: #f8d7da;
 }
-.prioridad-3:hover {
+.opcion-prioridad-3:hover {
   background-color: #f38f97;
   transition-duration: 0.2s;
 }
-.prioridad-2 {
+.opcion-prioridad-2 {
   background-color: #cfe2ff;
 }
-.prioridad-2:hover {
+.opcion-prioridad-2:hover {
   background-color: #79afff;
   transition-duration: 0.2s;
 }
-.prioridad-1 {
+.opcion-prioridad-1 {
   background-color: #d1e7dd;
 }
-.prioridad-1:hover {
+.opcion-prioridad-1:hover {
   background-color: #6ae3ad;
   transition-duration: 0.2s;
+}
+
+.prioridad-3 {
+  background-color: #f38f97;
+}
+.prioridad-2 {
+  background-color: #79afff;
+}
+.prioridad-1 {
+  background-color: #6ae3ad;
 }
 
 #oculto {

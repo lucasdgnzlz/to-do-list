@@ -66,21 +66,21 @@ function agregarNuevaTarea(tituloNuevaTarea) {
 	nuevaOpcionPrioridadTres.className = "bloque-opciones-tareas";
 
 	const nuevaPrioridadTres = document.createElement("div");
-	nuevaPrioridadTres.className = "opciones-tareas prioridad-3";
+	nuevaPrioridadTres.className = "opciones-tareas opcion-prioridad-3";
 	nuevaPrioridadTres.textContent = "Prioridad: 3";
 
 	const nuevaOpcionPrioridadDos = document.createElement("li");
 	nuevaOpcionPrioridadDos.className = "bloque-opciones-tareas";
 
 	const nuevaPrioridadDos = document.createElement("div");
-	nuevaPrioridadDos.className = "opciones-tareas prioridad-2";
+	nuevaPrioridadDos.className = "opciones-tareas opcion-prioridad-2";
 	nuevaPrioridadDos.textContent = "Prioridad: 2";
 
 	const nuevaOpcionPrioridadUno = document.createElement("li");
 	nuevaOpcionPrioridadUno.className = "bloque-opciones-tareas";
 
 	const nuevaPrioridadUno = document.createElement("div");
-	nuevaPrioridadUno.className = "opciones-tareas prioridad-1";
+	nuevaPrioridadUno.className = "opciones-tareas opcion-prioridad-1";
 	nuevaPrioridadUno.textContent = "Prioridad: 1";
 
 	const nuevoBloqueEliminarTarea = document.createElement("li");
@@ -161,13 +161,13 @@ $contenedorTareas.addEventListener(("click"), (e) => {
 	const $tareaSeleccionada = e.target.closest(".tarea");
 	console.log($tareaSeleccionada);
 
-	if(e.target.classList.contains("prioridad-3")){
+	if(e.target.classList.contains("opcion-prioridad-3")){
 		const nivelDePrioridad = "prioridad-3";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
-	} else if(e.target.classList.contains("prioridad-2")){
+	} else if(e.target.classList.contains("opcion-prioridad-2")){
 		const nivelDePrioridad = "prioridad-2";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
-	} else if(e.target.classList.contains("prioridad-1")){
+	} else if(e.target.classList.contains("opcion-prioridad-1")){
 		const nivelDePrioridad = "prioridad-1";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 	} else if(e.target.classList.contains("borrar-tarea")) {
