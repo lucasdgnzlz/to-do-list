@@ -90,10 +90,10 @@ function agregarNuevaTarea(tituloNuevaTarea) {
 	nuevoContenedorBorrarTarea.className = "bloque-borrar-tarea";
 	
 	const nuevoIconoBorrarTarea = document.createElement("i");
-	nuevoIconoBorrarTarea.className = "fa-regular fa-trash-can";
+	nuevoIconoBorrarTarea.className = "fa-regular fa-trash-can borrar-tarea";
 
 	const nuevoTextoBorrarTarea = document.createElement("div");
-	nuevoTextoBorrarTarea.className = "opciones-tareas";
+	nuevoTextoBorrarTarea.className = "opciones-tareas borrar-tarea";
 	nuevoTextoBorrarTarea.textContent = "Eliminar tarea";
 
 	nuevoContenedorEstado.appendChild(nuevoEstadoTarea);
@@ -151,4 +151,42 @@ function borrarErrorTituloTarea(){
 
 	const $contenedorMensajeError = document.querySelector(".contenedor-mensaje-error");
 	$contenedorMensajeError.id = "oculto";
+}
+
+// Asigna funcionalidad a las opciones //
+
+const $contenedorTareas = document.querySelector(".lista-tareas");
+
+$contenedorTareas.addEventListener(("click"), (e) => {
+	const $tareaSeleccionada = e.target.closest(".tarea");
+	console.log($tareaSeleccionada);
+
+	if(e.target.classList.contains("prioridad-3")){
+		const nivelDePrioridad = "prioridad-3";
+		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
+	} else if(e.target.classList.contains("prioridad-2")){
+		const nivelDePrioridad = "prioridad-2";
+		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
+	} else if(e.target.classList.contains("prioridad-1")){
+		const nivelDePrioridad = "prioridad-1";
+		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
+	} else if(e.target.classList.contains("borrar-tarea")) {
+		const $bloqueEliminarTarea = document.querySelector(".bloque-borrar-tarea");
+		console.log($bloqueEliminarTarea);
+	}
+});
+
+function agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad) {
+	if($tareaSeleccionada.classList.contains("prioridad-3")) {
+		$tareaSeleccionada.classList.remove("prioridad-3");
+		$tareaSeleccionada.classList.add(nivelDePrioridad);
+	} else if($tareaSeleccionada.classList.contains("prioridad-2")) {
+		$tareaSeleccionada.classList.remove("prioridad-2");
+		$tareaSeleccionada.classList.add(nivelDePrioridad);
+	} else if($tareaSeleccionada.classList.contains("prioridad-1")) {
+		$tareaSeleccionada.classList.remove("prioridad-1");
+		$tareaSeleccionada.classList.add(nivelDePrioridad);
+	} else{
+		$tareaSeleccionada.classList.add(nivelDePrioridad);
+	}
 }
