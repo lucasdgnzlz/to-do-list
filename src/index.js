@@ -159,7 +159,10 @@ const $contenedorTareas = document.querySelector(".lista-tareas");
 
 $contenedorTareas.addEventListener(("click"), (e) => {
 	const $tareaSeleccionada = e.target.closest(".tarea");
+	gestionarOpcionesDeLasTareas($tareaSeleccionada, e);
+});
 
+function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
 	if(e.target.classList.contains("opcion-prioridad-3")){
 		const nivelDePrioridad = "prioridad-3";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
@@ -173,7 +176,7 @@ $contenedorTareas.addEventListener(("click"), (e) => {
 		const $bloqueEliminarTarea = document.querySelector(".bloque-borrar-tarea");
 		console.log($bloqueEliminarTarea);
 	}
-});
+}
 
 function agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad) {
 	if($tareaSeleccionada.classList.contains("prioridad-3")) {
