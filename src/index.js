@@ -179,8 +179,7 @@ function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
 		cambiarColorNombreTareas($tareaSeleccionada);
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
 	} else if(e.target.classList.contains("borrar-tarea")) {
-		const $bloqueEliminarTarea = document.querySelector(".bloque-borrar-tarea");
-		console.log($bloqueEliminarTarea);
+		borrarTarea($tareaSeleccionada);
 	}
 }
 
@@ -221,4 +220,8 @@ function cambiarColorIconoOpcionesTareas($tareaSeleccionada) {
 	} else if($tareaSeleccionada.classList.contains("prioridad-1")) {
 		$iconoOpcionesTarea.style.color = "#808080";
 	}
+}
+
+function borrarTarea($tareaSeleccionada) {
+	$tareaSeleccionada.parentNode.removeChild($tareaSeleccionada);
 }
