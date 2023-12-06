@@ -121,7 +121,7 @@ function agregarNuevaTarea(tituloNuevaTarea) {
 }
 
 function validarTituloNuevaTarea(tituloNuevaTarea){
-	const regex = /^(?! )[a-zA-Z0-9\s\-!@#$%^&*(),.?":{}|<>]+$/;
+	const regex = /^(?! )[\w\s\-!@#$%^&*(),.?":{}|<>áéíóúÁÉÍÓÚüÜñÑ]+$/;
 
 	if(tituloNuevaTarea === "") {
 		return "La tarea debe tener un nombre";
