@@ -17,7 +17,7 @@ $botonAgregarTarea.addEventListener("click", () => {
 // Agrega tareas al apretar el botón correspondiente //
 
 $botonAgregarTarea.addEventListener(("click"), () => {
-	const tituloNuevaTarea = document.querySelector(".entrada-nueva-tarea").value;
+	const tituloNuevaTarea = document.querySelector("#entrada-nueva-tarea").value;
 
 	const error = validarTituloNuevaTarea(tituloNuevaTarea);
 
@@ -135,7 +135,7 @@ function validarTituloNuevaTarea(tituloNuevaTarea){
 // Agrega tareas al apretar el botón correspondiente //
 
 function mostrarErrorTituloTarea(error){
-	const $entradaTitulo = document.querySelector(".entrada-nueva-tarea");
+	const $entradaTitulo = document.querySelector("#entrada-nueva-tarea");
 	$entradaTitulo.classList.add("is-invalid");
 
 	const $contenedorMensajeError = document.querySelector(".contenedor-mensaje-error");
@@ -146,7 +146,7 @@ function mostrarErrorTituloTarea(error){
 }
 
 function borrarErrorTituloTarea(){
-	const $entradaTitulo = document.querySelector(".entrada-nueva-tarea");
+	const $entradaTitulo = document.querySelector("#entrada-nueva-tarea");
 	$entradaTitulo.classList.remove("is-invalid");
 
 	const $contenedorMensajeError = document.querySelector(".contenedor-mensaje-error");
