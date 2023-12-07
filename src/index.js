@@ -31,7 +31,7 @@ $botonAgregarTarea.addEventListener(("click"), () => {
 });
 
 function agregarNuevaTarea(tituloNuevaTarea) {
-	const $listaTareas = document.querySelector(".lista-tareas");
+	const $listaTareas = document.querySelector(".lista-tareas-pendientes");
 
 	const nuevaTarea = document.createElement("li");
 	nuevaTarea.className = "tarea";
@@ -155,11 +155,16 @@ function borrarErrorTituloTarea(){
 
 // Asigna funcionalidad a las opciones //
 
-const $contenedorTareas = document.querySelector(".lista-tareas");
+const $contenedorTareas = document.querySelector(".lista-tareas-pendientes");
 
 $contenedorTareas.addEventListener(("click"), (e) => {
 	const $tareaSeleccionada = e.target.closest(".tarea");
-	gestionarOpcionesDeLasTareas($tareaSeleccionada, e);
+
+	if(e.target.classList.contains("estado-tarea")) {
+		console.log("completo de prueba");
+	} else {
+		gestionarOpcionesDeLasTareas($tareaSeleccionada, e);
+	}
 });
 
 function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
@@ -225,3 +230,5 @@ function cambiarColorIconoOpcionesTareas($tareaSeleccionada) {
 function borrarTarea($tareaSeleccionada) {
 	$tareaSeleccionada.parentNode.removeChild($tareaSeleccionada);
 }
+
+// Funcionalidad al completar tarea //
