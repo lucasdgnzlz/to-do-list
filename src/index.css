@@ -173,12 +173,15 @@ main {
 
 .prioridad-3 {
   background-color: var(--color-base-prioridad-3);
+  transition-duration: 0.2s;
 }
 .prioridad-2 {
   background-color: var(--color-base-prioridad-2);
+  transition-duration: 0.2s;
 }
 .prioridad-1 {
   background-color: var(--color-base-prioridad-1);
+  transition-duration: 0.2s;
 }
 
 #oculto {
