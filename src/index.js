@@ -185,6 +185,8 @@ function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
 	} else if(e.target.classList.contains("borrar-tarea")) {
 		borrarTarea($tareaSeleccionada);
+	} else {
+		return false;
 	}
 }
 
