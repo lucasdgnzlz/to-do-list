@@ -130,6 +130,7 @@ main {
   border-radius: var(--border-radius-general);
   user-select: none;
   color: grey;
+  cursor: pointer;
 }
 
 /* Lista tareas */
