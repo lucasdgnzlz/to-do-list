@@ -135,13 +135,17 @@ main {
 
 /* Lista tareas */
 
-.contenedor-lista-tareas-pendientes {
+.contenedor-lista-tareas-pendientes,
+.contenedor-lista-tareas-completas,
+.contenedor-lista-tareas-totales {
   display: flex;
   margin: 20px 0;
   width: 80%;
   max-width: 550px;
 }
-.lista-tareas-pendientes {
+.lista-tareas-pendientes,
+.lista-tareas-completas,
+.lista-tareas-totales {
   width: 100%;
   padding: 0;
   margin: 0;
