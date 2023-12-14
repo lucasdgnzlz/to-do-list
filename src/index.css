@@ -100,6 +100,7 @@ main {
   margin: 0 10px;
 }
 .boton-opciones-listas-tareas {
+  background-color: transparent;
   border: none;
 }
 .icono-boton-agregar-lista {
