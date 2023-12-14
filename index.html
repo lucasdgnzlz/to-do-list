@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="src/index.css" />
-    <link rel="shortcut icon" href="/src/img/circulo-check.png" />
+    <link rel="shortcut icon" href="src/img/circulo-check.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script src="https://kit.fontawesome.com/ca6fdd5c59.js" crossorigin="anonymous"></script>
@@ -52,8 +52,44 @@
           </div>
         </div>
 
-        <div class="contenedor-lista-tareas">
-          <ul class="lista-tareas"></ul>
+        <div class="menu-tareas">
+          <div class="contenedor-opciones-menu">
+            <div class="menu-opcion menu-opcion-pendientes">
+              <p class="texto-opcion opcion-pendientes opcion-activa">Pendientes</p>
+            </div>
+            <div class="menu-opcion menu-opcion-completas">
+              <p class="texto-opcion opcion-completas">Completas</p>
+            </div>
+            <div class="menu-opcion menu-opcion-total">
+              <p class="texto-opcion opcion-total" id="oculto">Total</p>
+            </div>
+          </div>
+          <div class="contenedor-boton-agregar-lista">
+            <button class="boton-opciones-listas-tareas" type="button dropdown-toggle" data-bs-toggle="dropdown">
+              <i class="fa-solid fa-ellipsis icono-boton-agregar-lista"></i>
+            </button>
+
+            <ul class="dropdown-menu">
+              <li class="opciones-lista-menu-tareas">
+                <div class="opciones-menu-lista opcion-vaciar-listas">
+                  <i class="fa-regular fa-trash-can"></i>
+                  <div class="texto-opcion-vaciar-listas">Vaciar listas</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="contenedor-lista-tareas-pendientes">
+          <ul class="lista-tareas-pendientes"></ul>
+        </div>
+
+        <div class="contenedor-lista-tareas-completas" id="oculto">
+          <ul class="lista-tareas-completas"></ul>
+        </div>
+
+        <div class="contenedor-lista-tareas-totales" id="oculto">
+          <ul class="lista-tareas-totales"></ul>
         </div>
       </div>
     </main>
