@@ -361,7 +361,6 @@ $botonVaciarListasTareas.addEventListener(("click"), () => {
 	const $totalDeTareas = document.querySelectorAll(".tarea");
 
 	$totalDeTareas.forEach(($tarea) => {
-		console.log($tarea);
 		borrarTarea($tarea);
 	});
 });
