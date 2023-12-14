@@ -8,15 +8,12 @@ function agregaEventoBoton(){
 		$botonAgregarTarea.classList.remove("fa-flip");
 	}, 1000);
 }
-
-$botonAgregarTarea.addEventListener("click", () => {
-	agregaEventoBoton();
-});
 // Evento flip del botón agregar tarea
 
 // Agrega tareas al apretar el botón correspondiente //
 
 $botonAgregarTarea.addEventListener(("click"), () => {
+	agregaEventoBoton();
 	const tituloNuevaTarea = document.querySelector("#entrada-nueva-tarea").value;
 	const listaALaQueAgregarTarea = "lista-tareas-pendientes";
 
