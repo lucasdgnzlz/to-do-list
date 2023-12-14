@@ -354,3 +354,14 @@ function mostrarListaActiva(listaSeleccionada) {
 		}
 	});
 }
+
+const $botonVaciarListasTareas = document.querySelector(".opcion-vaciar-listas");
+
+$botonVaciarListasTareas.addEventListener(("click"), () => {
+	const $totalDeTareas = document.querySelectorAll(".tarea");
+
+	$totalDeTareas.forEach(($tarea) => {
+		console.log($tarea);
+		borrarTarea($tarea);
+	});
+});
