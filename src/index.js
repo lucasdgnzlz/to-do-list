@@ -18,6 +18,7 @@ $botonAgregarTarea.addEventListener("click", () => {
 
 $botonAgregarTarea.addEventListener(("click"), () => {
 	const tituloNuevaTarea = document.querySelector("#entrada-nueva-tarea").value;
+	const listaALaQueAgregarTarea = "lista-tareas-pendientes";
 
 	const error = validarTituloNuevaTarea(tituloNuevaTarea);
 
@@ -25,16 +26,16 @@ $botonAgregarTarea.addEventListener(("click"), () => {
 		mostrarErrorTituloTarea(error);
 		return false;
 	} else {
-		agregarNuevaTarea(tituloNuevaTarea);
+		agregarNuevaTarea(listaALaQueAgregarTarea, tituloNuevaTarea);
 		borrarErrorTituloTarea();
 	}
 });
 
-function agregarNuevaTarea(tituloNuevaTarea) {
-	const $listaTareas = document.querySelector(".lista-tareas");
+function agregarNuevaTarea(listaALaQueAgregarTarea, tituloNuevaTarea) {
+	const $listaTareas = document.querySelector(`.${listaALaQueAgregarTarea}`);
 
 	const nuevaTarea = document.createElement("li");
-	nuevaTarea.className = "tarea";
+	nuevaTarea.classList = "tarea";
 
 	const nuevoContenedorEstado = document.createElement("div");
 	nuevoContenedorEstado.className = "contenedor-estado-tarea";
@@ -43,6 +44,10 @@ function agregarNuevaTarea(tituloNuevaTarea) {
 	nuevoEstadoTarea.className = "form-check-input estado-tarea";
 	nuevoEstadoTarea.type = "checkbox";
 	nuevoEstadoTarea.id = "flexCheckDefault";
+
+	if(listaALaQueAgregarTarea === "lista-tareas-completas") {
+		nuevoEstadoTarea.checked = true;
+	}
 
 	const nuevoTituloTarea = document.createElement("p");
 	nuevoTituloTarea.className = "nombre-tarea";
@@ -153,13 +158,30 @@ function borrarErrorTituloTarea(){
 	$contenedorMensajeError.id = "oculto";
 }
 
-// Asigna funcionalidad a las opciones //
+// Asigna funcionalidad a las opciones y completado de tareas//
 
-const $contenedorTareas = document.querySelector(".lista-tareas");
+const $contenedorTareas = document.querySelector(".lista-tareas-pendientes");
 
 $contenedorTareas.addEventListener(("click"), (e) => {
 	const $tareaSeleccionada = e.target.closest(".tarea");
-	gestionarOpcionesDeLasTareas($tareaSeleccionada, e);
+
+	if(e.target.classList.contains("estado-tarea")) {
+		gestionarTareaCompleta($tareaSeleccionada);
+	} else {
+		gestionarOpcionesDeLasTareas($tareaSeleccionada, e);
+	}
+});
+
+const $contenedorTareasCompletas = document.querySelector(".lista-tareas-completas");
+
+$contenedorTareasCompletas.addEventListener(("click"), (e) => {
+	const $tareaSeleccionada = e.target.closest(".tarea");
+
+	if(e.target.classList.contains("estado-tarea")) {
+		gestionarTareaReiniciada(e, $tareaSeleccionada);
+	} else {
+		gestionarOpcionesDeLasTareas($tareaSeleccionada, e);
+	}
 });
 
 function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
@@ -180,6 +202,8 @@ function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
 	} else if(e.target.classList.contains("borrar-tarea")) {
 		borrarTarea($tareaSeleccionada);
+	} else {
+		return false;
 	}
 }
 
@@ -224,4 +248,109 @@ function cambiarColorIconoOpcionesTareas($tareaSeleccionada) {
 
 function borrarTarea($tareaSeleccionada) {
 	$tareaSeleccionada.parentNode.removeChild($tareaSeleccionada);
+}
+
+// Funcionalidad al completar tarea //
+
+function gestionarTareaCompleta($tareaSeleccionada) {
+	const listaALaQueAgregarTarea = "lista-tareas-completas";
+	const nombreTarea = $tareaSeleccionada.querySelector(".nombre-tarea").textContent;
+
+	agregarNuevaTarea(listaALaQueAgregarTarea, nombreTarea);
+	agregarMismasClasesATareaNueva(listaALaQueAgregarTarea, $tareaSeleccionada);
+	borrarTarea($tareaSeleccionada);
+}
+
+function agregarMismasClasesATareaNueva(contextoLista, $tareaSeleccionada) {
+	let clasesTareaOriginal;
+	let $tareaNueva;
+
+	if(contextoLista === "lista-tareas-completas") {
+		const $listaTareasCompletas = document.querySelector(".lista-tareas-completas");
+
+		clasesTareaOriginal = $tareaSeleccionada.classList;
+		$tareaNueva = $listaTareasCompletas.querySelector(".tarea");
+		$tareaNueva.classList = clasesTareaOriginal;
+		cambiarColorNombreTareas($tareaNueva);
+		cambiarColorIconoOpcionesTareas($tareaNueva);
+	} else if(contextoLista === "lista-tareas-pendientes") {
+		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
+
+		clasesTareaOriginal = $tareaSeleccionada.classList;
+		$tareaNueva = $listaTareasPendientes.querySelector(".tarea");
+		$tareaNueva.classList = clasesTareaOriginal;
+		cambiarColorNombreTareas($tareaNueva);
+		cambiarColorIconoOpcionesTareas($tareaNueva);
+	} else {
+		return false;
+	}
+}
+
+// Funcionalidad al reiniciar tarea //
+
+function gestionarTareaReiniciada(e, $tareaSeleccionada){
+	const listaALaQueAgregarTarea = "lista-tareas-pendientes";
+	const nombreTarea = $tareaSeleccionada.querySelector(".nombre-tarea").textContent;
+	
+	agregarNuevaTarea(listaALaQueAgregarTarea, nombreTarea);
+	agregarMismasClasesATareaNueva(listaALaQueAgregarTarea, $tareaSeleccionada);
+	borrarTarea($tareaSeleccionada);
+}
+
+// Funcionalidad cambio de listas //
+
+const $opcionesListasDeTareas = document.querySelectorAll(".texto-opcion");
+
+$opcionesListasDeTareas.forEach(($opcionListaTarea) => {
+	$opcionListaTarea.addEventListener(("click"), (e) => {
+		const listaSeleccionada = (e.target).textContent;
+		gestionarCambioDeLista(listaSeleccionada);
+	});
+});
+
+function gestionarCambioDeLista (listaSeleccionada) {
+	if(listaSeleccionada === "Pendientes") {
+		const $listaTareasPendientes = document.querySelector(".contenedor-lista-tareas-pendientes");
+		$listaTareasPendientes.id = "";
+
+		const $listaTareasCompletas = document.querySelector(".contenedor-lista-tareas-completas");
+		$listaTareasCompletas.id = "oculto";
+		const $listaTareasTotales = document.querySelector(".contenedor-lista-tareas-totales");
+		$listaTareasTotales.id = "oculto";
+		mostrarListaActiva(listaSeleccionada);
+	} else if(listaSeleccionada === "Completas"){
+		const $listaTareasCompletas = document.querySelector(".contenedor-lista-tareas-completas");
+		$listaTareasCompletas.id = "";
+
+		const $listaTareasPendientes = document.querySelector(".contenedor-lista-tareas-pendientes");
+		$listaTareasPendientes.id = "oculto";
+		const $listaTareasTotales = document.querySelector(".contenedor-lista-tareas-totales");
+		$listaTareasTotales.id = "oculto";
+		mostrarListaActiva(listaSeleccionada);
+	} else if(listaSeleccionada === "Total") {
+		const $listaTareasTotales = document.querySelector(".contenedor-lista-tareas-totales");
+		$listaTareasTotales.id = "";
+
+		const $listaTareasPendientes = document.querySelector(".contenedor-lista-tareas-pendientes");
+		$listaTareasPendientes.id = "oculto";
+		const $listaTareasCompletas = document.querySelector(".contenedor-lista-tareas-completas");
+		$listaTareasCompletas.id = "oculto";
+		mostrarListaActiva(listaSeleccionada);
+	}
+}
+
+function mostrarListaActiva(listaSeleccionada) {
+	const $opcionesListasDeTareas = document.querySelectorAll(".texto-opcion");
+	
+	$opcionesListasDeTareas.forEach(($opcionListaTarea) => {
+		if($opcionListaTarea.classList.contains("opcion-activa")) {
+			$opcionListaTarea.classList.remove("opcion-activa");
+		}
+	});
+
+	$opcionesListasDeTareas.forEach(($opcionListaTarea) => {
+		if($opcionListaTarea.textContent === listaSeleccionada) {
+			$opcionListaTarea.classList.add("opcion-activa");
+		}
+	});
 }
