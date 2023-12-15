@@ -14,6 +14,7 @@ function agregaEventoBoton(){
 
 $botonAgregarTarea.addEventListener(("click"), () => {
 	agregaEventoBoton();
+
 	const tituloNuevaTarea = document.querySelector("#entrada-nueva-tarea").value;
 	const listaALaQueAgregarTarea = "lista-tareas-pendientes";
 
@@ -24,6 +25,7 @@ $botonAgregarTarea.addEventListener(("click"), () => {
 		return false;
 	} else {
 		agregarNuevaTarea(listaALaQueAgregarTarea, tituloNuevaTarea);
+		guardarTareasEnLocalStorage(tituloNuevaTarea);
 		borrarErrorTituloTarea();
 	}
 });
@@ -182,21 +184,26 @@ $contenedorTareasCompletas.addEventListener(("click"), (e) => {
 });
 
 function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
+	const nombreTarea = $tareaSeleccionada.querySelector(".nombre-tarea").textContent;
+
 	if(e.target.classList.contains("opcion-prioridad-3")){
 		const nivelDePrioridad = "prioridad-3";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 		cambiarColorNombreTareas($tareaSeleccionada);
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
+		guardarTareasEnLocalStorage(nombreTarea);
 	} else if(e.target.classList.contains("opcion-prioridad-2")){
 		const nivelDePrioridad = "prioridad-2";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 		cambiarColorNombreTareas($tareaSeleccionada);
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
+		guardarTareasEnLocalStorage(nombreTarea);
 	} else if(e.target.classList.contains("opcion-prioridad-1")){
 		const nivelDePrioridad = "prioridad-1";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 		cambiarColorNombreTareas($tareaSeleccionada);
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
+		guardarTareasEnLocalStorage(nombreTarea);
 	} else if(e.target.classList.contains("borrar-tarea")) {
 		borrarTarea($tareaSeleccionada);
 	} else {
@@ -361,3 +368,22 @@ $botonVaciarListasTareas.addEventListener(("click"), () => {
 		borrarTarea($tarea);
 	});
 });
+
+// Funcionalidad localStorage //
+
+function guardarTareasEnLocalStorage(tituloNuevaTarea){
+	const $tareas = document.querySelectorAll(".tarea");
+
+	$tareas.forEach((tarea) => {
+		let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
+
+		if(tituloTarea === tituloNuevaTarea){
+			const informacionTareaAGuardar = {
+				"nombreTarea": tituloNuevaTarea,
+				"clasesTarea": tarea.classList
+			};
+
+			localStorage.setItem(`tarea_${tituloNuevaTarea}`, JSON.stringify(informacionTareaAGuardar));
+		}
+	});
+}
