@@ -412,3 +412,33 @@ function cargarTareasDeLocalStorage(DATA_A_BUSCAR){
 
 	return tareasGuardadas;
 }
+
+function actualizarDatosTareaGuardada(nombreTareaActualizada){
+	const contextoTarea = "actualización de tarea";
+	
+	tareasGuardadasEnLocalStorage.forEach((tareaEnLista, i) => {
+		const nombreTareaEnLista = Object.keys(tareaEnLista)[0];
+		const $tareas = document.querySelectorAll(".tarea");
+
+		if(nombreTareaEnLista === `tarea_${nombreTareaActualizada}`) {
+			console.log(tareasGuardadasEnLocalStorage[i]);
+
+			$tareas.forEach((tarea) => {
+				let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
+		
+				if(tituloTarea === nombreTareaActualizada){
+					const nombreKey = `tarea_${nombreTareaActualizada}`;
+					const tareaActualizada = {
+						[nombreKey]: {
+							"nombreTarea": nombreTareaActualizada,
+							"clasesTarea": tarea.classList
+						}
+					};
+					tareasGuardadasEnLocalStorage[i] = tareaActualizada;
+				}
+			});		
+		}
+	});
+
+	guardarTareasEnLocalStorage(contextoTarea, nombreTareaActualizada);
+}
