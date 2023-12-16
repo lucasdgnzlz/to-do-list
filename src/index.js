@@ -17,6 +17,7 @@ $botonAgregarTarea.addEventListener(("click"), () => {
 
 	const tituloNuevaTarea = document.querySelector("#entrada-nueva-tarea").value;
 	const listaALaQueAgregarTarea = "lista-tareas-pendientes";
+	const contextoTarea = "nueva tarea";
 
 	const error = validarTituloNuevaTarea(tituloNuevaTarea);
 
@@ -25,7 +26,7 @@ $botonAgregarTarea.addEventListener(("click"), () => {
 		return false;
 	} else {
 		agregarNuevaTarea(listaALaQueAgregarTarea, tituloNuevaTarea);
-		guardarTareasEnLocalStorage(tituloNuevaTarea);
+		guardarTareasEnLocalStorage(contextoTarea, tituloNuevaTarea);
 		borrarErrorTituloTarea();
 	}
 });
@@ -191,19 +192,19 @@ function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 		cambiarColorNombreTareas($tareaSeleccionada);
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
-		guardarTareasEnLocalStorage(nombreTarea);
+		actualizarDatosTareaGuardada(nombreTarea);
 	} else if(e.target.classList.contains("opcion-prioridad-2")){
 		const nivelDePrioridad = "prioridad-2";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 		cambiarColorNombreTareas($tareaSeleccionada);
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
-		guardarTareasEnLocalStorage(nombreTarea);
+		actualizarDatosTareaGuardada(nombreTarea);
 	} else if(e.target.classList.contains("opcion-prioridad-1")){
 		const nivelDePrioridad = "prioridad-1";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 		cambiarColorNombreTareas($tareaSeleccionada);
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
-		guardarTareasEnLocalStorage(nombreTarea);
+		actualizarDatosTareaGuardada(nombreTarea);
 	} else if(e.target.classList.contains("borrar-tarea")) {
 		borrarTarea($tareaSeleccionada);
 	} else {
@@ -371,19 +372,43 @@ $botonVaciarListasTareas.addEventListener(("click"), () => {
 
 // Funcionalidad localStorage //
 
-function guardarTareasEnLocalStorage(tituloNuevaTarea){
-	const $tareas = document.querySelectorAll(".tarea");
+let tareasGuardadasEnLocalStorage = [];
 
-	$tareas.forEach((tarea) => {
-		let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
+function guardarTareasEnLocalStorage(contextoTarea, nombreTarea){	
+	if(contextoTarea !== "nueva tarea"){
+		localStorage.setItem("tareasGuardadas", JSON.stringify(tareasGuardadasEnLocalStorage));
+	} else{
+		const $tareas = document.querySelectorAll(".tarea");
 
-		if(tituloTarea === tituloNuevaTarea){
-			const informacionTareaAGuardar = {
-				"nombreTarea": tituloNuevaTarea,
-				"clasesTarea": tarea.classList
-			};
+		$tareas.forEach((tarea) => {
+			let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
 
-			localStorage.setItem(`tarea_${tituloNuevaTarea}`, JSON.stringify(informacionTareaAGuardar));
-		}
-	});
+			if(tituloTarea === nombreTarea){
+				const nombreKey = `tarea_${nombreTarea}`;
+				const informacionTareaAGuardar = {
+					[nombreKey]: {
+						"nombreTarea": nombreTarea,
+						"clasesTarea": tarea.classList
+					}
+				};
+				tareasGuardadasEnLocalStorage.push(informacionTareaAGuardar);
+
+				localStorage.setItem("tareasGuardadas", JSON.stringify(tareasGuardadasEnLocalStorage));
+			}
+		});
+	}
+}
+
+function cargarTareasDeLocalStorage(DATA_A_BUSCAR){
+	if(DATA_A_BUSCAR === undefined){
+		throw new Error("Se necesita el nombre de la data que se requiere para cargar la misma");
+	}
+	
+	const tareasGuardadas = JSON.parse(localStorage.getItem(`${DATA_A_BUSCAR}`));
+
+	if(tareasGuardadas === null) {
+		throw new Error(`La data ${DATA_A_BUSCAR} no se encontro en el localStorage`);
+	}
+
+	return tareasGuardadas;
 }
