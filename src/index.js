@@ -442,3 +442,17 @@ function actualizarDatosTareaGuardada(nombreTareaActualizada){
 
 	guardarTareasEnLocalStorage(contextoTarea, nombreTareaActualizada);
 }
+
+// Funcionalidad al iniciar la página //
+
+function iniciarPagina() {
+	const DATA_A_BUSCAR = ["tareasGuardadas"];
+
+	try{
+		const tareasGuardadas = cargarTareasDeLocalStorage(DATA_A_BUSCAR);
+		console.log(tareasGuardadas);
+	} catch(e) {
+		console.error(e);
+	}
+}
+iniciarPagina();
