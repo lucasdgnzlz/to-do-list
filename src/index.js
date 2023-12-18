@@ -380,11 +380,11 @@ function guardarTareasEnLocalStorage(contextoTarea, nombreTarea){
 	} else{
 		const $tareas = document.querySelectorAll(".tarea");
 
-		$tareas.forEach((tarea) => {
+		$tareas.forEach((tarea, i) => {
 			let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
 
 			if(tituloTarea === nombreTarea){
-				const nombreKey = `tarea_${nombreTarea}`;
+				const nombreKey = `tarea_${i}`;
 				const informacionTareaAGuardar = {
 					[nombreKey]: {
 						"nombreTarea": nombreTarea,
@@ -420,14 +420,14 @@ function actualizarDatosTareaGuardada(nombreTareaActualizada){
 		const nombreTareaEnLista = Object.keys(tareaEnLista)[0];
 		const $tareas = document.querySelectorAll(".tarea");
 
-		if(nombreTareaEnLista === `tarea_${nombreTareaActualizada}`) {
+		if(nombreTareaEnLista === `tarea_${i}`) {
 			console.log(tareasGuardadasEnLocalStorage[i]);
 
 			$tareas.forEach((tarea) => {
 				let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
 		
 				if(tituloTarea === nombreTareaActualizada){
-					const nombreKey = `tarea_${nombreTareaActualizada}`;
+					const nombreKey = `tarea_${i}`;
 					const tareaActualizada = {
 						[nombreKey]: {
 							"nombreTarea": nombreTareaActualizada,
@@ -451,8 +451,13 @@ function iniciarPagina() {
 	try{
 		const tareasGuardadas = cargarTareasDeLocalStorage(DATA_A_BUSCAR);
 		console.log(tareasGuardadas);
+		agregarTareaGuardada(tareasGuardadas);
 	} catch(e) {
-		console.error(e);
+		return false;
 	}
 }
 iniciarPagina();
+
+function agregarTareaGuardada(dataTareas){
+	console.log(dataTareas[0]["tarea_22"]);
+}
