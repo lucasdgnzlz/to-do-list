@@ -264,6 +264,7 @@ function gestionarTareaCompleta($tareaSeleccionada) {
 	agregarNuevaTarea(listaALaQueAgregarTarea, nombreTarea);
 	agregarMismasClasesATareaNueva(listaALaQueAgregarTarea, $tareaSeleccionada);
 	borrarTarea($tareaSeleccionada);
+	actualizarDatosTareaGuardada(nombreTarea);
 }
 
 function agregarMismasClasesATareaNueva(contextoLista, $tareaSeleccionada) {
@@ -382,13 +383,15 @@ function guardarTareasEnLocalStorage(contextoTarea, nombreTarea){
 
 		$tareas.forEach((tarea, i) => {
 			let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
+			const $listaALaQuePerteneceLaTarea = tarea.parentNode;
 
 			if(tituloTarea === nombreTarea){
 				const nombreKey = `tarea_${i + 1}`;
 				const informacionTareaAGuardar = {
 					[nombreKey]: {
 						"nombreTarea": nombreTarea,
-						"clasesTarea": tarea.classList
+						"clasesTarea": tarea.classList,
+						"lista-a-la-que-pertenece": $listaALaQuePerteneceLaTarea.className
 					}
 				};
 				tareasGuardadasEnLocalStorage.push(informacionTareaAGuardar);
@@ -418,25 +421,41 @@ function actualizarDatosTareaGuardada(nombreTareaActualizada){
 	
 	tareasGuardadasEnLocalStorage.forEach((tareaEnLista, i) => {
 		const nombreTareaEnLista = Object.keys(tareaEnLista)[0];
+		const nombreTareaEspecifica = tareaEnLista[`tarea_${i + 1}`]["nombreTarea"];
 		const $tareas = document.querySelectorAll(".tarea");
 
-		if(nombreTareaEnLista === `tarea_${nombreTareaActualizada}`) {
-			console.log(tareasGuardadasEnLocalStorage[i]);
+		if(nombreTareaEnLista === `tarea_${i + 1}`) {
+			const $listaALaQuePerteneceLaTarea = $tareas[i].parentNode;
 
-			$tareas.forEach((tarea) => {
+			if(nombreTareaEspecifica === nombreTareaActualizada){
+				const nombreKey = `tarea_${i + 1}`;
+				const tareaActualizada = {
+					[nombreKey]: {
+						"nombreTarea": nombreTareaActualizada,
+						"clasesTarea": $tareas[i].classList,
+						"lista-a-la-que-pertenece": $listaALaQuePerteneceLaTarea.className
+					}
+				};
+
+				tareasGuardadasEnLocalStorage[i] = tareaActualizada;
+			}
+			/*$tareas.forEach((tarea) => {
 				let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
+				const $listaALaQuePerteneceLaTarea = tarea.parentNode;
 		
 				if(tituloTarea === nombreTareaActualizada){
 					const nombreKey = `tarea_${i + 1}`;
 					const tareaActualizada = {
 						[nombreKey]: {
 							"nombreTarea": nombreTareaActualizada,
-							"clasesTarea": tarea.classList
+							"clasesTarea": tarea.classList,
+							"lista-a-la-que-pertenece": $listaALaQuePerteneceLaTarea.className
 						}
 					};
 					tareasGuardadasEnLocalStorage[i] = tareaActualizada;
 				}
-			});		
+			});
+			*/		
 		}
 	});
 
@@ -450,17 +469,10 @@ function iniciarPagina() {
 
 	try{
 		const tareasGuardadas = cargarTareasDeLocalStorage(DATA_A_BUSCAR);
-		console.log(tareasGuardadas);
-		agregarTareaGuardada(tareasGuardadas);
+		enlistarTareasGuardadas(tareasGuardadas);
+		mostrarTareasGuardadasEnLocalStorage(tareasGuardadasEnLocalStorage);
 	} catch(e) {
-		return false;
+		return console.error(e);
 	}
 }
 iniciarPagina();
-
-function agregarTareaGuardada(dataTareas){
-	dataTareas.forEach((tareaGuardada, i) => {
-		const nombreTarea = tareaGuardada[`tarea_${i}`]["nombreTarea"];
-		console.log(nombreTarea);
-	});
-}
