@@ -35,7 +35,7 @@ function agregarNuevaTarea(listaALaQueAgregarTarea, tituloNuevaTarea) {
 	const $listaTareas = document.querySelector(`.${listaALaQueAgregarTarea}`);
 
 	const nuevaTarea = document.createElement("li");
-	nuevaTarea.classList = "tarea";
+	nuevaTarea.className = "tarea tarea-pendiente";
 
 	const nuevoContenedorEstado = document.createElement("div");
 	nuevoContenedorEstado.className = "contenedor-estado-tarea";
@@ -268,28 +268,33 @@ function gestionarTareaCompleta($tareaSeleccionada) {
 }
 
 function agregarMismasClasesATareaNueva(contextoLista, $tareaSeleccionada) {
-	let clasesTareaOriginal;
 	let $tareaNueva;
 
-	if(contextoLista === "lista-tareas-completas") {
+	const clasesTareaOriginal = $tareaSeleccionada.classList;
+	let listaClasesTareaActualizada = "";
+	
+	clasesTareaOriginal.forEach((clase) => {
+		if(!(clase === "tarea-pendiente" || clase === "tarea-completa")) {
+			listaClasesTareaActualizada += `${clase} `;
+		}
+	});
+
+	if(contextoLista === "lista-tareas-completas"){
 		const $listaTareasCompletas = document.querySelector(".lista-tareas-completas");
-
-		clasesTareaOriginal = $tareaSeleccionada.classList;
 		$tareaNueva = $listaTareasCompletas.querySelector(".tarea");
-		$tareaNueva.classList = clasesTareaOriginal;
-		cambiarColorNombreTareas($tareaNueva);
-		cambiarColorIconoOpcionesTareas($tareaNueva);
-	} else if(contextoLista === "lista-tareas-pendientes") {
-		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
 
-		clasesTareaOriginal = $tareaSeleccionada.classList;
+		listaClasesTareaActualizada += "tarea-completa";
+		$tareaNueva.classList = listaClasesTareaActualizada;
+	} else if(contextoLista === "lista-tareas-pendientes"){
+		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
 		$tareaNueva = $listaTareasPendientes.querySelector(".tarea");
-		$tareaNueva.classList = clasesTareaOriginal;
-		cambiarColorNombreTareas($tareaNueva);
-		cambiarColorIconoOpcionesTareas($tareaNueva);
-	} else {
-		return false;
+
+		listaClasesTareaActualizada += "tarea-pendiente";
+		$tareaNueva.classList = listaClasesTareaActualizada;
 	}
+
+	cambiarColorNombreTareas($tareaNueva);
+	cambiarColorIconoOpcionesTareas($tareaNueva);
 }
 
 // Funcionalidad al reiniciar tarea //
@@ -383,7 +388,6 @@ function guardarTareasEnLocalStorage(contextoTarea, nombreTarea){
 
 		$tareas.forEach((tarea, i) => {
 			let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
-			const $listaALaQuePerteneceLaTarea = tarea.parentNode;
 
 			if(tituloTarea === nombreTarea){
 				const nombreKey = `tarea_${i + 1}`;
@@ -391,7 +395,6 @@ function guardarTareasEnLocalStorage(contextoTarea, nombreTarea){
 					[nombreKey]: {
 						"nombreTarea": nombreTarea,
 						"clasesTarea": tarea.classList,
-						"lista-a-la-que-pertenece": $listaALaQuePerteneceLaTarea.className
 					}
 				};
 				tareasGuardadasEnLocalStorage.push(informacionTareaAGuardar);
@@ -416,46 +419,27 @@ function cargarTareasDeLocalStorage(DATA_A_BUSCAR){
 	return tareasGuardadas;
 }
 
-function actualizarDatosTareaGuardada(nombreTareaActualizada){
+function actualizarDatosTareaGuardada(nombreTareaActualizada){	
 	const contextoTarea = "actualización de tarea";
-	
+
 	tareasGuardadasEnLocalStorage.forEach((tareaEnLista, i) => {
 		const nombreTareaEnLista = Object.keys(tareaEnLista)[0];
 		const nombreTareaEspecifica = tareaEnLista[`tarea_${i + 1}`]["nombreTarea"];
 		const $tareas = document.querySelectorAll(".tarea");
 
 		if(nombreTareaEnLista === `tarea_${i + 1}`) {
-			const $listaALaQuePerteneceLaTarea = $tareas[i].parentNode;
 
 			if(nombreTareaEspecifica === nombreTareaActualizada){
 				const nombreKey = `tarea_${i + 1}`;
 				const tareaActualizada = {
 					[nombreKey]: {
 						"nombreTarea": nombreTareaActualizada,
-						"clasesTarea": $tareas[i].classList,
-						"lista-a-la-que-pertenece": $listaALaQuePerteneceLaTarea.className
+						"clasesTarea": $tareas[i].classList
 					}
 				};
 
 				tareasGuardadasEnLocalStorage[i] = tareaActualizada;
-			}
-			/*$tareas.forEach((tarea) => {
-				let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
-				const $listaALaQuePerteneceLaTarea = tarea.parentNode;
-		
-				if(tituloTarea === nombreTareaActualizada){
-					const nombreKey = `tarea_${i + 1}`;
-					const tareaActualizada = {
-						[nombreKey]: {
-							"nombreTarea": nombreTareaActualizada,
-							"clasesTarea": tarea.classList,
-							"lista-a-la-que-pertenece": $listaALaQuePerteneceLaTarea.className
-						}
-					};
-					tareasGuardadasEnLocalStorage[i] = tareaActualizada;
-				}
-			});
-			*/		
+			}	
 		}
 	});
 
