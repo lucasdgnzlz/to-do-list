@@ -268,6 +268,7 @@ function gestionarTareaCompleta($tareaSeleccionada) {
 }
 
 function agregarMismasClasesATareaNueva(contextoLista, $tareaSeleccionada) {
+	const nombreTareaAnterior = ($tareaSeleccionada.querySelector(".nombre-tarea")).textContent;
 	let $tareaNueva;
 
 	const clasesTareaOriginal = $tareaSeleccionada.classList;
@@ -281,13 +282,29 @@ function agregarMismasClasesATareaNueva(contextoLista, $tareaSeleccionada) {
 
 	if(contextoLista === "lista-tareas-completas"){
 		const $listaTareasCompletas = document.querySelector(".lista-tareas-completas");
-		$tareaNueva = $listaTareasCompletas.querySelector(".tarea");
+		const $tareasCompletas = $listaTareasCompletas.querySelectorAll(".tarea");
+
+		$tareasCompletas.forEach(($tarea) => {
+			const nombreTareaCompleta = ($tarea.querySelector(".nombre-tarea")).textContent;
+
+			if(nombreTareaAnterior === nombreTareaCompleta){
+				$tareaNueva = $tarea;
+			}
+		});
 
 		listaClasesTareaActualizada += "tarea-completa";
 		$tareaNueva.classList = listaClasesTareaActualizada;
 	} else if(contextoLista === "lista-tareas-pendientes"){
 		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
-		$tareaNueva = $listaTareasPendientes.querySelector(".tarea");
+		const $tareasPendientes = $listaTareasPendientes.querySelectorAll(".tarea");
+
+		$tareasPendientes.forEach(($tarea) => {
+			const nombreTareaPendiente = ($tarea.querySelector(".nombre-tarea")).textContent;
+
+			if(nombreTareaAnterior === nombreTareaPendiente){
+				$tareaNueva = $tarea;
+			}
+		});
 
 		listaClasesTareaActualizada += "tarea-pendiente";
 		$tareaNueva.classList = listaClasesTareaActualizada;
@@ -306,6 +323,7 @@ function gestionarTareaReiniciada(e, $tareaSeleccionada){
 	agregarNuevaTarea(listaALaQueAgregarTarea, nombreTarea);
 	agregarMismasClasesATareaNueva(listaALaQueAgregarTarea, $tareaSeleccionada);
 	borrarTarea($tareaSeleccionada);
+	actualizarDatosTareaGuardada(nombreTarea);
 }
 
 // Funcionalidad cambio de listas //
@@ -419,27 +437,39 @@ function cargarTareasDeLocalStorage(DATA_A_BUSCAR){
 	return tareasGuardadas;
 }
 
-function actualizarDatosTareaGuardada(nombreTareaActualizada){	
+function actualizarDatosTareaGuardada(nombreTareaActualizada){
 	const contextoTarea = "actualización de tarea";
+	let nombreKey;
+	let tareaActualizada;
 
 	tareasGuardadasEnLocalStorage.forEach((tareaEnLista, i) => {
-		const nombreTareaEnLista = Object.keys(tareaEnLista)[0];
-		const nombreTareaEspecifica = tareaEnLista[`tarea_${i + 1}`]["nombreTarea"];
+		const indicadorTarea = Object.keys(tareaEnLista)[0];
+		const nombreTareaEnLista = tareaEnLista[`tarea_${i + 1}`]["nombreTarea"];
+
+		if(nombreTareaEnLista === nombreTareaActualizada){
+			nombreKey = indicadorTarea;
+		}
+
 		const $tareas = document.querySelectorAll(".tarea");
+		const tituloTareaAComparar = ($tareas[i].querySelector(".nombre-tarea")).textContent;
 
-		if(nombreTareaEnLista === `tarea_${i + 1}`) {
-
-			if(nombreTareaEspecifica === nombreTareaActualizada){
-				const nombreKey = `tarea_${i + 1}`;
-				const tareaActualizada = {
+		if(indicadorTarea === `tarea_${i + 1}`) {
+			if(tituloTareaAComparar === nombreTareaActualizada){
+				tareaActualizada = {
 					[nombreKey]: {
 						"nombreTarea": nombreTareaActualizada,
 						"clasesTarea": $tareas[i].classList
 					}
-				};
+				};				
+			}
+		}
+	});
 
-				tareasGuardadasEnLocalStorage[i] = tareaActualizada;
-			}	
+	tareasGuardadasEnLocalStorage.forEach((tareaEnLista, i) => {
+		const nombreTareaEnLista = Object.keys(tareaEnLista)[0];
+
+		if(nombreTareaEnLista === nombreKey){
+			tareasGuardadasEnLocalStorage[i] = tareaActualizada;
 		}
 	});
 
