@@ -484,9 +484,14 @@ function iniciarPagina() {
 	try{
 		const tareasGuardadas = cargarTareasDeLocalStorage(DATA_A_BUSCAR);
 		enlistarTareasGuardadas(tareasGuardadas);
-		mostrarTareasGuardadasEnLocalStorage(tareasGuardadasEnLocalStorage);
 	} catch(e) {
 		return console.error(e);
 	}
 }
 iniciarPagina();
+
+function enlistarTareasGuardadas(dataTareas) {
+	dataTareas.forEach((tarea) => {
+		tareasGuardadasEnLocalStorage.push(tarea);
+	});
+}
