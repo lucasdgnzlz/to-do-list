@@ -14,8 +14,10 @@ function agregaEventoBoton(){
 
 $botonAgregarTarea.addEventListener(("click"), () => {
 	agregaEventoBoton();
+
 	const tituloNuevaTarea = document.querySelector("#entrada-nueva-tarea").value;
 	const listaALaQueAgregarTarea = "lista-tareas-pendientes";
+	const contextoTarea = "nueva tarea";
 
 	const error = validarTituloNuevaTarea(tituloNuevaTarea);
 
@@ -24,6 +26,7 @@ $botonAgregarTarea.addEventListener(("click"), () => {
 		return false;
 	} else {
 		agregarNuevaTarea(listaALaQueAgregarTarea, tituloNuevaTarea);
+		guardarTareasEnLocalStorage(contextoTarea, tituloNuevaTarea);
 		borrarErrorTituloTarea();
 	}
 });
@@ -32,7 +35,7 @@ function agregarNuevaTarea(listaALaQueAgregarTarea, tituloNuevaTarea) {
 	const $listaTareas = document.querySelector(`.${listaALaQueAgregarTarea}`);
 
 	const nuevaTarea = document.createElement("li");
-	nuevaTarea.classList = "tarea";
+	nuevaTarea.className = "tarea tarea-pendiente";
 
 	const nuevoContenedorEstado = document.createElement("div");
 	nuevoContenedorEstado.className = "contenedor-estado-tarea";
@@ -182,21 +185,26 @@ $contenedorTareasCompletas.addEventListener(("click"), (e) => {
 });
 
 function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
+	const nombreTarea = $tareaSeleccionada.querySelector(".nombre-tarea").textContent;
+
 	if(e.target.classList.contains("opcion-prioridad-3")){
 		const nivelDePrioridad = "prioridad-3";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 		cambiarColorNombreTareas($tareaSeleccionada);
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
+		actualizarDatosTareaGuardada(nombreTarea);
 	} else if(e.target.classList.contains("opcion-prioridad-2")){
 		const nivelDePrioridad = "prioridad-2";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 		cambiarColorNombreTareas($tareaSeleccionada);
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
+		actualizarDatosTareaGuardada(nombreTarea);
 	} else if(e.target.classList.contains("opcion-prioridad-1")){
 		const nivelDePrioridad = "prioridad-1";
 		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
 		cambiarColorNombreTareas($tareaSeleccionada);
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
+		actualizarDatosTareaGuardada(nombreTarea);
 	} else if(e.target.classList.contains("borrar-tarea")) {
 		borrarTarea($tareaSeleccionada);
 	} else {
@@ -256,31 +264,54 @@ function gestionarTareaCompleta($tareaSeleccionada) {
 	agregarNuevaTarea(listaALaQueAgregarTarea, nombreTarea);
 	agregarMismasClasesATareaNueva(listaALaQueAgregarTarea, $tareaSeleccionada);
 	borrarTarea($tareaSeleccionada);
+	actualizarDatosTareaGuardada(nombreTarea);
 }
 
 function agregarMismasClasesATareaNueva(contextoLista, $tareaSeleccionada) {
-	let clasesTareaOriginal;
+	const nombreTareaAnterior = ($tareaSeleccionada.querySelector(".nombre-tarea")).textContent;
 	let $tareaNueva;
 
-	if(contextoLista === "lista-tareas-completas") {
+	const clasesTareaOriginal = $tareaSeleccionada.classList;
+	let listaClasesTareaActualizada = "";
+	
+	clasesTareaOriginal.forEach((clase) => {
+		if(!(clase === "tarea-pendiente" || clase === "tarea-completa")) {
+			listaClasesTareaActualizada += `${clase} `;
+		}
+	});
+
+	if(contextoLista === "lista-tareas-completas"){
 		const $listaTareasCompletas = document.querySelector(".lista-tareas-completas");
+		const $tareasCompletas = $listaTareasCompletas.querySelectorAll(".tarea");
 
-		clasesTareaOriginal = $tareaSeleccionada.classList;
-		$tareaNueva = $listaTareasCompletas.querySelector(".tarea");
-		$tareaNueva.classList = clasesTareaOriginal;
-		cambiarColorNombreTareas($tareaNueva);
-		cambiarColorIconoOpcionesTareas($tareaNueva);
-	} else if(contextoLista === "lista-tareas-pendientes") {
+		$tareasCompletas.forEach(($tarea) => {
+			const nombreTareaCompleta = ($tarea.querySelector(".nombre-tarea")).textContent;
+
+			if(nombreTareaAnterior === nombreTareaCompleta){
+				$tareaNueva = $tarea;
+			}
+		});
+
+		listaClasesTareaActualizada += "tarea-completa";
+		$tareaNueva.classList = listaClasesTareaActualizada;
+	} else if(contextoLista === "lista-tareas-pendientes"){
 		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
+		const $tareasPendientes = $listaTareasPendientes.querySelectorAll(".tarea");
 
-		clasesTareaOriginal = $tareaSeleccionada.classList;
-		$tareaNueva = $listaTareasPendientes.querySelector(".tarea");
-		$tareaNueva.classList = clasesTareaOriginal;
-		cambiarColorNombreTareas($tareaNueva);
-		cambiarColorIconoOpcionesTareas($tareaNueva);
-	} else {
-		return false;
+		$tareasPendientes.forEach(($tarea) => {
+			const nombreTareaPendiente = ($tarea.querySelector(".nombre-tarea")).textContent;
+
+			if(nombreTareaAnterior === nombreTareaPendiente){
+				$tareaNueva = $tarea;
+			}
+		});
+
+		listaClasesTareaActualizada += "tarea-pendiente";
+		$tareaNueva.classList = listaClasesTareaActualizada;
 	}
+
+	cambiarColorNombreTareas($tareaNueva);
+	cambiarColorIconoOpcionesTareas($tareaNueva);
 }
 
 // Funcionalidad al reiniciar tarea //
@@ -292,6 +323,7 @@ function gestionarTareaReiniciada(e, $tareaSeleccionada){
 	agregarNuevaTarea(listaALaQueAgregarTarea, nombreTarea);
 	agregarMismasClasesATareaNueva(listaALaQueAgregarTarea, $tareaSeleccionada);
 	borrarTarea($tareaSeleccionada);
+	actualizarDatosTareaGuardada(nombreTarea);
 }
 
 // Funcionalidad cambio de listas //
@@ -361,3 +393,230 @@ $botonVaciarListasTareas.addEventListener(("click"), () => {
 		borrarTarea($tarea);
 	});
 });
+
+// Funcionalidad localStorage //
+
+let tareasGuardadasEnLocalStorage = [];
+
+function guardarTareasEnLocalStorage(contextoTarea, nombreTarea){	
+	if(contextoTarea !== "nueva tarea"){
+		localStorage.setItem("tareasGuardadas", JSON.stringify(tareasGuardadasEnLocalStorage));
+	} else{
+		const $tareas = document.querySelectorAll(".tarea");
+
+		$tareas.forEach((tarea, i) => {
+			let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
+
+			if(tituloTarea === nombreTarea){
+				const nombreKey = `tarea_${i + 1}`;
+				const informacionTareaAGuardar = {
+					[nombreKey]: {
+						"nombreTarea": nombreTarea,
+						"clasesTarea": tarea.classList,
+					}
+				};
+				tareasGuardadasEnLocalStorage.push(informacionTareaAGuardar);
+
+				localStorage.setItem("tareasGuardadas", JSON.stringify(tareasGuardadasEnLocalStorage));
+			}
+		});
+	}
+}
+
+function cargarTareasDeLocalStorage(DATA_A_BUSCAR){
+	if(DATA_A_BUSCAR === undefined){
+		throw new Error("Se necesita el nombre de la data que se requiere para cargar la misma");
+	}
+	
+	const tareasGuardadas = JSON.parse(localStorage.getItem(`${DATA_A_BUSCAR}`));
+
+	if(tareasGuardadas === null) {
+		throw new Error(`La data ${DATA_A_BUSCAR} no se encontro en el localStorage`);
+	}
+
+	return tareasGuardadas;
+}
+
+function actualizarDatosTareaGuardada(nombreTareaActualizada){
+	const contextoTarea = "actualización de tarea";
+	let nombreKey;
+	let tareaActualizada;
+
+	tareasGuardadasEnLocalStorage.forEach((tareaEnLista, i) => {
+		const indicadorTarea = Object.keys(tareaEnLista)[0];
+		const nombreTareaEnLista = tareaEnLista[`tarea_${i + 1}`]["nombreTarea"];
+
+		if(nombreTareaEnLista === nombreTareaActualizada){
+			nombreKey = indicadorTarea;
+		}
+
+		const $tareas = document.querySelectorAll(".tarea");
+		const tituloTareaAComparar = ($tareas[i].querySelector(".nombre-tarea")).textContent;
+
+		if(indicadorTarea === `tarea_${i + 1}`) {
+			if(tituloTareaAComparar === nombreTareaActualizada){
+				tareaActualizada = {
+					[nombreKey]: {
+						"nombreTarea": nombreTareaActualizada,
+						"clasesTarea": $tareas[i].classList
+					}
+				};				
+			}
+		}
+	});
+
+	tareasGuardadasEnLocalStorage.forEach((tareaEnLista, i) => {
+		const nombreTareaEnLista = Object.keys(tareaEnLista)[0];
+
+		if(nombreTareaEnLista === nombreKey){
+			tareasGuardadasEnLocalStorage[i] = tareaActualizada;
+		}
+	});
+
+	guardarTareasEnLocalStorage(contextoTarea, nombreTareaActualizada);
+}
+
+// Funcionalidad al iniciar la página //
+
+function iniciarPagina() {
+	const DATA_A_BUSCAR = ["tareasGuardadas"];
+
+	try{
+		const tareasGuardadas = cargarTareasDeLocalStorage(DATA_A_BUSCAR);
+		enlistarTareasGuardadas(tareasGuardadas);
+		gestionarDataTareasGuardadas(tareasGuardadas);
+	} catch(e) {
+		return console.error(e);
+	}
+}
+iniciarPagina();
+
+function enlistarTareasGuardadas(dataTareas) {
+	dataTareas.forEach((tarea) => {
+		tareasGuardadasEnLocalStorage.push(tarea);
+	});
+}
+
+function gestionarDataTareasGuardadas(dataTareas){
+	dataTareas.forEach((tareaGuardada, i) => {
+		const listaClasesTareaGuardada = tareaGuardada[`tarea_${i + 1}`]["clasesTarea"];
+		const keysClasesTareaGuardada = Object.keys(listaClasesTareaGuardada); // esto es un objeto
+		const cantidadClasesTareaGuardada = keysClasesTareaGuardada.length;
+		const nombreTareaGuardada = tareaGuardada[`tarea_${i + 1}`]["nombreTarea"];
+		let listaALaQuePerteneceLaTareaGuardada;
+		let clasesTareaGuardada;
+
+		for(let i = 0; i < cantidadClasesTareaGuardada; i++){
+			if(clasesTareaGuardada === undefined){
+				clasesTareaGuardada = `${listaClasesTareaGuardada[i]} `;
+			} else{
+				clasesTareaGuardada += `${listaClasesTareaGuardada[i]} `;
+			}
+
+			if(listaClasesTareaGuardada[i] === "tarea-pendiente"){
+				listaALaQuePerteneceLaTareaGuardada = "lista-tareas-pendientes";
+			} else if(listaClasesTareaGuardada[i] === "tarea-completa"){
+				listaALaQuePerteneceLaTareaGuardada = "lista-tareas-completas";
+			}
+		}
+
+		recrearTareasGuardadas(listaALaQuePerteneceLaTareaGuardada, clasesTareaGuardada, nombreTareaGuardada);
+	});
+}
+
+function recrearTareasGuardadas(listaALaQuePerteneceLaTareaGuardada, clasesTareaGuardada, nombreTareaGuardada){
+	const $listaTareas = document.querySelector(`.${listaALaQuePerteneceLaTareaGuardada}`);
+
+	const nuevaTarea = document.createElement("li");
+	nuevaTarea.classList = clasesTareaGuardada;
+
+	const nuevoContenedorEstado = document.createElement("div");
+	nuevoContenedorEstado.className = "contenedor-estado-tarea";
+
+	const nuevoEstadoTarea = document.createElement("input");
+	nuevoEstadoTarea.className = "form-check-input estado-tarea";
+	nuevoEstadoTarea.type = "checkbox";
+	nuevoEstadoTarea.id = "flexCheckDefault";
+
+	if(listaALaQuePerteneceLaTareaGuardada === "lista-tareas-completas") {
+		nuevoEstadoTarea.checked = true;
+	}
+
+	const nuevoTituloTarea = document.createElement("p");
+	nuevoTituloTarea.className = "nombre-tarea";
+	nuevoTituloTarea.textContent = nombreTareaGuardada;
+
+	const nuevoContenedorOpciones = document.createElement("div");
+	nuevoContenedorOpciones.className = "contenedor-opciones-tarea";
+
+	const nuevoBotonOpciones = document.createElement("button");
+	nuevoBotonOpciones.className = "boton-opciones-tarea";
+	nuevoBotonOpciones.type="button dropdown-toggle";
+	nuevoBotonOpciones.setAttribute("data-bs-toggle", "dropdown");
+
+	const nuevoIconoBoton = document.createElement("i");
+	nuevoIconoBoton.className = "fa-solid fa-ellipsis icono-opciones-tareas";
+
+	const nuevaListaOpciones = document.createElement("ul");
+	nuevaListaOpciones.className = "dropdown-menu";
+
+	const nuevaOpcionPrioridadTres = document.createElement("li");
+	nuevaOpcionPrioridadTres.className = "bloque-opciones-tareas";
+
+	const nuevaPrioridadTres = document.createElement("div");
+	nuevaPrioridadTres.className = "opciones-tareas opcion-prioridad-3";
+	nuevaPrioridadTres.textContent = "Prioridad: 3";
+
+	const nuevaOpcionPrioridadDos = document.createElement("li");
+	nuevaOpcionPrioridadDos.className = "bloque-opciones-tareas";
+
+	const nuevaPrioridadDos = document.createElement("div");
+	nuevaPrioridadDos.className = "opciones-tareas opcion-prioridad-2";
+	nuevaPrioridadDos.textContent = "Prioridad: 2";
+
+	const nuevaOpcionPrioridadUno = document.createElement("li");
+	nuevaOpcionPrioridadUno.className = "bloque-opciones-tareas";
+
+	const nuevaPrioridadUno = document.createElement("div");
+	nuevaPrioridadUno.className = "opciones-tareas opcion-prioridad-1";
+	nuevaPrioridadUno.textContent = "Prioridad: 1";
+
+	const nuevoBloqueEliminarTarea = document.createElement("li");
+	nuevoBloqueEliminarTarea.className = "bloque-opciones-tareas";
+
+	const nuevoContenedorBorrarTarea = document.createElement("div");
+	nuevoContenedorBorrarTarea.className = "bloque-borrar-tarea";
+	
+	const nuevoIconoBorrarTarea = document.createElement("i");
+	nuevoIconoBorrarTarea.className = "fa-regular fa-trash-can borrar-tarea";
+
+	const nuevoTextoBorrarTarea = document.createElement("div");
+	nuevoTextoBorrarTarea.className = "opciones-tareas borrar-tarea";
+	nuevoTextoBorrarTarea.textContent = "Eliminar tarea";
+
+	nuevoContenedorEstado.appendChild(nuevoEstadoTarea);
+	nuevoContenedorEstado.appendChild(nuevoTituloTarea);
+	nuevaTarea.appendChild(nuevoContenedorEstado);
+
+	nuevoBotonOpciones.appendChild(nuevoIconoBoton);
+	nuevaOpcionPrioridadTres.appendChild(nuevaPrioridadTres);
+	nuevaOpcionPrioridadDos.appendChild(nuevaPrioridadDos);
+	nuevaOpcionPrioridadUno.appendChild(nuevaPrioridadUno);
+	nuevoContenedorBorrarTarea.appendChild(nuevoIconoBorrarTarea);
+	nuevoContenedorBorrarTarea.appendChild(nuevoTextoBorrarTarea);
+	nuevoBloqueEliminarTarea.appendChild(nuevoContenedorBorrarTarea);
+	
+	nuevaListaOpciones.appendChild(nuevaOpcionPrioridadTres);
+	nuevaListaOpciones.appendChild(nuevaOpcionPrioridadDos);
+	nuevaListaOpciones.appendChild(nuevaOpcionPrioridadUno);
+	nuevaListaOpciones.appendChild(nuevoBloqueEliminarTarea);
+
+	nuevoContenedorOpciones.appendChild(nuevoBotonOpciones);
+	nuevoContenedorOpciones.appendChild(nuevaListaOpciones);
+	nuevaTarea.appendChild(nuevoContenedorOpciones);
+
+	$listaTareas.appendChild(nuevaTarea);
+
+	cambiarColorNombreTareas(nuevaTarea);
+	cambiarColorIconoOpcionesTareas(nuevaTarea);
+}
