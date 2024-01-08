@@ -264,3 +264,10 @@ main {
 #oculto {
   display: none;
 }
+
+
+@media (min-width:450px) {
+  .titulo{
+    font-size: 70px;
+  }
+}
