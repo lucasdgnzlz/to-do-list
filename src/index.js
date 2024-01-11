@@ -207,6 +207,8 @@ function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
 		actualizarDatosTareaGuardada(nombreTarea);
 	} else if(e.target.classList.contains("borrar-tarea")) {
 		borrarTarea($tareaSeleccionada);
+		eliminarTareaDeLocalStorage($tareaSeleccionada);
+		actualizarDatosTareaGuardada(nombreTarea);
 	} else {
 		return false;
 	}
@@ -404,11 +406,11 @@ function guardarTareasEnLocalStorage(contextoTarea, nombreTarea){
 	} else{
 		const $tareas = document.querySelectorAll(".tarea");
 
-		$tareas.forEach((tarea, i) => {
+		$tareas.forEach((tarea) => {
 			let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
+			const nombreKey = "tarea";
 
 			if(tituloTarea === nombreTarea){
-				const nombreKey = `tarea_${i + 1}`;
 				const informacionTareaAGuardar = {
 					[nombreKey]: {
 						"nombreTarea": nombreTarea,
@@ -439,41 +441,46 @@ function cargarTareasDeLocalStorage(DATA_A_BUSCAR){
 
 function actualizarDatosTareaGuardada(nombreTareaActualizada){
 	const contextoTarea = "actualización de tarea";
-	let nombreKey;
+	let NOMBRE_KEY = "tarea";
 	let tareaActualizada;
 
 	tareasGuardadasEnLocalStorage.forEach((tareaEnLista, i) => {
-		const indicadorTarea = Object.keys(tareaEnLista)[0];
-		const nombreTareaEnLista = tareaEnLista[`tarea_${i + 1}`]["nombreTarea"];
-
-		if(nombreTareaEnLista === nombreTareaActualizada){
-			nombreKey = indicadorTarea;
-		}
-
 		const $tareas = document.querySelectorAll(".tarea");
 		const tituloTareaAComparar = ($tareas[i].querySelector(".nombre-tarea")).textContent;
 
-		if(indicadorTarea === `tarea_${i + 1}`) {
-			if(tituloTareaAComparar === nombreTareaActualizada){
-				tareaActualizada = {
-					[nombreKey]: {
-						"nombreTarea": nombreTareaActualizada,
-						"clasesTarea": $tareas[i].classList
-					}
-				};				
-			}
+		if(tituloTareaAComparar === nombreTareaActualizada){
+			tareaActualizada = {
+				[NOMBRE_KEY]: {
+					"nombreTarea": nombreTareaActualizada,
+					"clasesTarea": $tareas[i].classList
+				}
+			};				
 		}
 	});
 
 	tareasGuardadasEnLocalStorage.forEach((tareaEnLista, i) => {
-		const nombreTareaEnLista = Object.keys(tareaEnLista)[0];
+		const indicadorTareaEnLista = Object.keys(tareaEnLista)[0];
+		const nombreTareaGuardada = tareasGuardadasEnLocalStorage[i][indicadorTareaEnLista]["nombreTarea"];
 
-		if(nombreTareaEnLista === nombreKey){
+		if(nombreTareaActualizada === nombreTareaGuardada){
 			tareasGuardadasEnLocalStorage[i] = tareaActualizada;
 		}
 	});
 
 	guardarTareasEnLocalStorage(contextoTarea, nombreTareaActualizada);
+}
+
+function eliminarTareaDeLocalStorage($tareaSeleccionada){
+	const nombreTareaSeleccionada = $tareaSeleccionada.querySelector(".nombre-tarea").textContent;
+
+	tareasGuardadasEnLocalStorage.forEach((tareaGuardada, i) => {
+		const indicadorTareaGuardada = Object.keys(tareaGuardada)[0];
+		const nombreTareaGuardada = tareasGuardadasEnLocalStorage[i][indicadorTareaGuardada]["nombreTarea"];
+
+		if(nombreTareaGuardada === nombreTareaSeleccionada){
+			tareasGuardadasEnLocalStorage.splice(0, i + 1);
+		}
+	});
 }
 
 // Funcionalidad al iniciar la página //
@@ -498,11 +505,12 @@ function enlistarTareasGuardadas(dataTareas) {
 }
 
 function gestionarDataTareasGuardadas(dataTareas){
-	dataTareas.forEach((tareaGuardada, i) => {
-		const listaClasesTareaGuardada = tareaGuardada[`tarea_${i + 1}`]["clasesTarea"];
+	dataTareas.forEach((tareaGuardada) => {
+		const indicadorTarea = Object.keys(tareaGuardada)[0];
+		const listaClasesTareaGuardada = tareaGuardada[indicadorTarea]["clasesTarea"];
 		const keysClasesTareaGuardada = Object.keys(listaClasesTareaGuardada); // esto es un objeto
 		const cantidadClasesTareaGuardada = keysClasesTareaGuardada.length;
-		const nombreTareaGuardada = tareaGuardada[`tarea_${i + 1}`]["nombreTarea"];
+		const nombreTareaGuardada = tareaGuardada[indicadorTarea]["nombreTarea"];
 		let listaALaQuePerteneceLaTareaGuardada;
 		let clasesTareaGuardada;
 
