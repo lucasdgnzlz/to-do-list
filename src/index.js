@@ -1,19 +1,10 @@
-// Evento flip del botón agregar tarea
-const $botonAgregarTarea = document.querySelector("#boton-agregar-tarea");
-
-function agregaEventoBoton(){
-	$botonAgregarTarea.classList.add("fa-flip");
-
-	setTimeout(() => {
-		$botonAgregarTarea.classList.remove("fa-flip");
-	}, 1000);
-}
-// Evento flip del botón agregar tarea
+import {activarEventoBoton} from "../src/ui/botonAgregarTarea.js";
 
 // Agrega tareas al apretar el botón correspondiente //
+const $botonAgregarTarea = document.querySelector("#boton-agregar-tarea");
 
 $botonAgregarTarea.addEventListener(("click"), () => {
-	agregaEventoBoton();
+	activarEventoBoton($botonAgregarTarea);
 
 	const tituloNuevaTarea = document.querySelector("#entrada-nueva-tarea").value;
 	const listaALaQueAgregarTarea = "lista-tareas-pendientes";
