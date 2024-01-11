@@ -406,11 +406,11 @@ function guardarTareasEnLocalStorage(contextoTarea, nombreTarea){
 	} else{
 		const $tareas = document.querySelectorAll(".tarea");
 
-		$tareas.forEach((tarea, i) => {
+		$tareas.forEach((tarea) => {
 			let tituloTarea = tarea.querySelector(".nombre-tarea").textContent;
+			const nombreKey = "tarea";
 
 			if(tituloTarea === nombreTarea){
-				const nombreKey = `tarea_${i + 1}`;
 				const informacionTareaAGuardar = {
 					[nombreKey]: {
 						"nombreTarea": nombreTarea,
@@ -441,23 +441,16 @@ function cargarTareasDeLocalStorage(DATA_A_BUSCAR){
 
 function actualizarDatosTareaGuardada(nombreTareaActualizada){
 	const contextoTarea = "actualización de tarea";
-	let nombreKey;
+	let NOMBRE_KEY = "tarea";
 	let tareaActualizada;
 
 	tareasGuardadasEnLocalStorage.forEach((tareaEnLista, i) => {
-		const indicadorTarea = Object.keys(tareaEnLista)[0];
-		const nombreTareaEnLista = tareaEnLista[indicadorTarea]["nombreTarea"];
-
-		if(nombreTareaEnLista === nombreTareaActualizada){
-			nombreKey = indicadorTarea;
-		}
-
 		const $tareas = document.querySelectorAll(".tarea");
 		const tituloTareaAComparar = ($tareas[i].querySelector(".nombre-tarea")).textContent;
 
 		if(tituloTareaAComparar === nombreTareaActualizada){
 			tareaActualizada = {
-				[nombreKey]: {
+				[NOMBRE_KEY]: {
 					"nombreTarea": nombreTareaActualizada,
 					"clasesTarea": $tareas[i].classList
 				}
@@ -466,9 +459,10 @@ function actualizarDatosTareaGuardada(nombreTareaActualizada){
 	});
 
 	tareasGuardadasEnLocalStorage.forEach((tareaEnLista, i) => {
-		const nombreTareaEnLista = Object.keys(tareaEnLista)[0];
+		const indicadorTareaEnLista = Object.keys(tareaEnLista)[0];
+		const nombreTareaGuardada = tareasGuardadasEnLocalStorage[i][indicadorTareaEnLista]["nombreTarea"];
 
-		if(nombreTareaEnLista === nombreKey){
+		if(nombreTareaActualizada === nombreTareaGuardada){
 			tareasGuardadasEnLocalStorage[i] = tareaActualizada;
 		}
 	});
@@ -478,7 +472,6 @@ function actualizarDatosTareaGuardada(nombreTareaActualizada){
 
 function eliminarTareaDeLocalStorage($tareaSeleccionada){
 	const nombreTareaSeleccionada = $tareaSeleccionada.querySelector(".nombre-tarea").textContent;
-	console.log($tareaSeleccionada);
 
 	tareasGuardadasEnLocalStorage.forEach((tareaGuardada, i) => {
 		const indicadorTareaGuardada = Object.keys(tareaGuardada)[0];
