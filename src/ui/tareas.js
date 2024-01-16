@@ -110,3 +110,76 @@ export function borrarErrorTituloTarea(){
 	const $contenedorMensajeError = document.querySelector(".contenedor-mensaje-error");
 	$contenedorMensajeError.id = "oculto";
 }
+
+export function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
+	const nombreTarea = $tareaSeleccionada.querySelector(".nombre-tarea").textContent;
+
+	if(e.target.classList.contains("opcion-prioridad-3")){
+		const nivelDePrioridad = "prioridad-3";
+		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
+		cambiarColorNombreTareas($tareaSeleccionada);
+		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
+		actualizarDatosTareaGuardada(nombreTarea);
+	} else if(e.target.classList.contains("opcion-prioridad-2")){
+		const nivelDePrioridad = "prioridad-2";
+		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
+		cambiarColorNombreTareas($tareaSeleccionada);
+		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
+		actualizarDatosTareaGuardada(nombreTarea);
+	} else if(e.target.classList.contains("opcion-prioridad-1")){
+		const nivelDePrioridad = "prioridad-1";
+		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
+		cambiarColorNombreTareas($tareaSeleccionada);
+		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
+		actualizarDatosTareaGuardada(nombreTarea);
+	} else if(e.target.classList.contains("borrar-tarea")) {
+		borrarTarea($tareaSeleccionada);
+		eliminarTareaDeLocalStorage($tareaSeleccionada);
+		actualizarDatosTareaGuardada(nombreTarea);
+	} else {
+		return false;
+	}
+}
+
+function agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad) {
+	if($tareaSeleccionada.classList.contains("prioridad-3")) {
+		$tareaSeleccionada.classList.remove("prioridad-3");
+		$tareaSeleccionada.classList.add(nivelDePrioridad);
+	} else if($tareaSeleccionada.classList.contains("prioridad-2")) {
+		$tareaSeleccionada.classList.remove("prioridad-2");
+		$tareaSeleccionada.classList.add(nivelDePrioridad);
+	} else if($tareaSeleccionada.classList.contains("prioridad-1")) {
+		$tareaSeleccionada.classList.remove("prioridad-1");
+		$tareaSeleccionada.classList.add(nivelDePrioridad);
+	} else{
+		$tareaSeleccionada.classList.add(nivelDePrioridad);
+	}
+}
+
+function cambiarColorNombreTareas($tareaSeleccionada) {
+	const $nombreTarea = $tareaSeleccionada.querySelector(".nombre-tarea");
+
+	if($tareaSeleccionada.classList.contains("prioridad-3")) {
+		$nombreTarea.style.color = "#fff";
+	} else if($tareaSeleccionada.classList.contains("prioridad-2")) {
+		$nombreTarea.style.color = "#fff";
+	} else if($tareaSeleccionada.classList.contains("prioridad-1")) {
+		$nombreTarea.style.color = "#808080";
+	}
+}
+
+function cambiarColorIconoOpcionesTareas($tareaSeleccionada) {
+	const $iconoOpcionesTarea = $tareaSeleccionada.querySelector(".icono-opciones-tareas");
+
+	if($tareaSeleccionada.classList.contains("prioridad-3")) {
+		$iconoOpcionesTarea.style.color = "#fff";
+	} else if($tareaSeleccionada.classList.contains("prioridad-2")) {
+		$iconoOpcionesTarea.style.color = "#fff";
+	} else if($tareaSeleccionada.classList.contains("prioridad-1")) {
+		$iconoOpcionesTarea.style.color = "#808080";
+	}
+}
+
+function borrarTarea($tareaSeleccionada) {
+	$tareaSeleccionada.parentNode.removeChild($tareaSeleccionada);
+}

@@ -28,9 +28,9 @@ $botonAgregarTarea.addEventListener(("click"), () => {
 
 // Asigna funcionalidad a las opciones y completado de tareas//
 
-const $contenedorTareas = document.querySelector(".lista-tareas-pendientes");
+const $contenedorTareasPendientes = document.querySelector(".lista-tareas-pendientes");
 
-$contenedorTareas.addEventListener(("click"), (e) => {
+$contenedorTareasPendientes.addEventListener(("click"), (e) => {
 	const $tareaSeleccionada = e.target.closest(".tarea");
 
 	if(e.target.classList.contains("estado-tarea")) {
@@ -51,36 +51,6 @@ $contenedorTareasCompletas.addEventListener(("click"), (e) => {
 		gestionarOpcionesDeLasTareas($tareaSeleccionada, e);
 	}
 });
-
-function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
-	const nombreTarea = $tareaSeleccionada.querySelector(".nombre-tarea").textContent;
-
-	if(e.target.classList.contains("opcion-prioridad-3")){
-		const nivelDePrioridad = "prioridad-3";
-		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
-		cambiarColorNombreTareas($tareaSeleccionada);
-		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
-		actualizarDatosTareaGuardada(nombreTarea);
-	} else if(e.target.classList.contains("opcion-prioridad-2")){
-		const nivelDePrioridad = "prioridad-2";
-		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
-		cambiarColorNombreTareas($tareaSeleccionada);
-		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
-		actualizarDatosTareaGuardada(nombreTarea);
-	} else if(e.target.classList.contains("opcion-prioridad-1")){
-		const nivelDePrioridad = "prioridad-1";
-		agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad);
-		cambiarColorNombreTareas($tareaSeleccionada);
-		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
-		actualizarDatosTareaGuardada(nombreTarea);
-	} else if(e.target.classList.contains("borrar-tarea")) {
-		borrarTarea($tareaSeleccionada);
-		eliminarTareaDeLocalStorage($tareaSeleccionada);
-		actualizarDatosTareaGuardada(nombreTarea);
-	} else {
-		return false;
-	}
-}
 
 function agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad) {
 	if($tareaSeleccionada.classList.contains("prioridad-3")) {
