@@ -1,6 +1,6 @@
 import {activarEventoBoton} from "../src/ui/botonAgregarTarea.js";
 
-import {agregarNuevaTarea} from "../src/ui/tareas.js";
+import {agregarNuevaTarea, mostrarErrorTituloTarea, borrarErrorTituloTarea} from "../src/ui/tareas.js";
 
 import {validarTituloNuevaTarea} from "../src/validaciones/validaciones.js";
 
@@ -25,27 +25,6 @@ $botonAgregarTarea.addEventListener(("click"), () => {
 		borrarErrorTituloTarea();
 	}
 });
-
-// Agrega tareas al apretar el botón correspondiente //
-
-function mostrarErrorTituloTarea(error){
-	const $entradaTitulo = document.querySelector("#entrada-nueva-tarea");
-	$entradaTitulo.classList.add("is-invalid");
-
-	const $contenedorMensajeError = document.querySelector(".contenedor-mensaje-error");
-	$contenedorMensajeError.id = "";
-
-	const $mensajeErrorTituloTarea = document.querySelector(".texto-error-titulo-tarea");
-	$mensajeErrorTituloTarea.textContent = error;
-}
-
-function borrarErrorTituloTarea(){
-	const $entradaTitulo = document.querySelector("#entrada-nueva-tarea");
-	$entradaTitulo.classList.remove("is-invalid");
-
-	const $contenedorMensajeError = document.querySelector(".contenedor-mensaje-error");
-	$contenedorMensajeError.id = "oculto";
-}
 
 // Asigna funcionalidad a las opciones y completado de tareas//
 

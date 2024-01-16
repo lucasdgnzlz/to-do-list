@@ -91,3 +91,22 @@ export function agregarNuevaTarea(listaALaQueAgregarTarea, tituloNuevaTarea) {
 
 	$listaTareas.appendChild(nuevaTarea);
 }
+
+export function mostrarErrorTituloTarea(error){
+	const $entradaTitulo = document.querySelector("#entrada-nueva-tarea");
+	$entradaTitulo.classList.add("is-invalid");
+
+	const $contenedorMensajeError = document.querySelector(".contenedor-mensaje-error");
+	$contenedorMensajeError.id = "";
+
+	const $mensajeErrorTituloTarea = document.querySelector(".texto-error-titulo-tarea");
+	$mensajeErrorTituloTarea.textContent = error;
+}
+
+export function borrarErrorTituloTarea(){
+	const $entradaTitulo = document.querySelector("#entrada-nueva-tarea");
+	$entradaTitulo.classList.remove("is-invalid");
+
+	const $contenedorMensajeError = document.querySelector(".contenedor-mensaje-error");
+	$contenedorMensajeError.id = "oculto";
+}
