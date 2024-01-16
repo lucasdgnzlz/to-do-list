@@ -6,7 +6,7 @@ import {gestionarCambioDeLista} from "./ui/listasTareas.js";
 
 import {validarTituloNuevaTarea} from "./validaciones/validaciones.js";
 
-import {guardarTareasEnLocalStorage, cargarTareasDeLocalStorage, tareasGuardadasEnLocalStorage}  from "../src/storage/to-do-list.js";
+import {guardarTareasEnLocalStorage, cargarTareasDeLocalStorage, tareasGuardadasEnLocalStorage, eliminarTodasLasTareasDeLocalStorage}  from "../src/storage/to-do-list.js";
 
 const $botonAgregarTarea = document.querySelector("#boton-agregar-tarea");
 const $contenedorTareasPendientes = document.querySelector(".lista-tareas-pendientes");
@@ -66,6 +66,8 @@ $botonVaciarListasTareas.addEventListener(("click"), () => {
 	$totalDeTareas.forEach(($tarea) => {
 		borrarTarea($tarea);
 	});
+
+	eliminarTodasLasTareasDeLocalStorage();
 });
 
 function iniciarPagina() {
