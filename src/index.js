@@ -2,6 +2,8 @@ import {activarEventoBoton} from "../src/ui/botonAgregarTarea.js";
 
 import {agregarNuevaTarea} from "../src/ui/tareas.js";
 
+import {validarTituloNuevaTarea} from "../src/validaciones/validaciones.js";
+
 // Agrega tareas al apretar el botón correspondiente //
 const $botonAgregarTarea = document.querySelector("#boton-agregar-tarea");
 
@@ -23,18 +25,6 @@ $botonAgregarTarea.addEventListener(("click"), () => {
 		borrarErrorTituloTarea();
 	}
 });
-
-function validarTituloNuevaTarea(tituloNuevaTarea){
-	const regex = /^(?! )[\w\s\-!@#$%^&*(),.?":{}|<>áéíóúÁÉÍÓÚüÜñÑ]+$/;
-
-	if(tituloNuevaTarea === "") {
-		return "La tarea debe tener un nombre";
-	} else if(!regex.test(tituloNuevaTarea)) {
-		return "El nombre de la tarea no es válido";
-	}	else {
-		return "";
-	}
-}
 
 // Agrega tareas al apretar el botón correspondiente //
 
