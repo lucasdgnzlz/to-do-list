@@ -24,7 +24,7 @@ header {
   margin: 0;
   padding: 0 10px;
   font-family: var(--font-principal);
-  font-size: 70px;
+  font-size: 60px;
   color: grey;
 }
 .segunda-palabra-titulo {
@@ -263,4 +263,11 @@ main {
 
 #oculto {
   display: none;
+}
+
+
+@media (min-width:450px) {
+  .titulo{
+    font-size: 70px;
+  }
 }
