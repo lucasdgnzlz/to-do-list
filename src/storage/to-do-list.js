@@ -70,15 +70,20 @@ export function actualizarDatosTareaGuardada(nombreTareaActualizada){
 	guardarTareasEnLocalStorage(contextoTarea, nombreTareaActualizada);
 }
 
-export function eliminarTareaDeLocalStorage($tareaSeleccionada){
+export function eliminarTareaDeLocalStorage($tareaSeleccionada) {
 	const nombreTareaSeleccionada = $tareaSeleccionada.querySelector(".nombre-tarea").textContent;
 
-	tareasGuardadasEnLocalStorage.forEach((tareaGuardada, i) => {
+	tareasGuardadasEnLocalStorage = tareasGuardadasEnLocalStorage.filter(tareaGuardada => {
 		const indicadorTareaGuardada = Object.keys(tareaGuardada)[0];
-		const nombreTareaGuardada = tareasGuardadasEnLocalStorage[i][indicadorTareaGuardada]["nombreTarea"];
+		const nombreTareaGuardada = tareaGuardada[indicadorTareaGuardada]["nombreTarea"];
 
-		if(nombreTareaGuardada === nombreTareaSeleccionada){
-			tareasGuardadasEnLocalStorage.splice(0, i + 1);
-		}
+		return nombreTareaGuardada !== nombreTareaSeleccionada;
 	});
+}
+
+export function eliminarTodasLasTareasDeLocalStorage(){
+	const CONTEXTO_TAREA = "actualización de tarea";
+
+	tareasGuardadasEnLocalStorage = [];
+	guardarTareasEnLocalStorage(CONTEXTO_TAREA, null);
 }
