@@ -134,7 +134,7 @@ export function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
 		cambiarColorNombreTareas($tareaSeleccionada);
 		cambiarColorIconoOpcionesTareas($tareaSeleccionada);
 		actualizarDatosTareaGuardada(nombreTarea);
-	} else if(e.target.classList.contains("borrar-tareexport a")) {
+	} else if(e.target.classList.contains("borrar-tarea")) {
 		borrarTarea($tareaSeleccionada);
 		eliminarTareaDeLocalStorage($tareaSeleccionada);
 		actualizarDatosTareaGuardada(nombreTarea);
