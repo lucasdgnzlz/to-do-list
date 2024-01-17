@@ -1,4 +1,10 @@
 :root {
+  --paleta-base-elm: #1f8e8e;
+  --paleta-base-hb: #4da8a8;
+  --paleta-base-neptune: #85bcbc;
+  --paleta-base-jungle-mist: #b1d2d2;
+  --paleta-base-aqua-haze: #e5f1f1;
+
   --color-base-prioridad-3: #f38f97;
   --color-base-prioridad-2: #79afff;
   --color-base-prioridad-1: #6ae3ad;
