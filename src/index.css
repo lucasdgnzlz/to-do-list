@@ -96,7 +96,7 @@ main {
 .opcion-activa {
   border-bottom: 2px solid lightgray;
 }
-.contenedor-boton-agregar-lista{
+.contenedor-boton-agregar-lista {
   margin: 0 10px;
 }
 .boton-opciones-listas-tareas {
@@ -110,7 +110,7 @@ main {
   color: rgb(29, 29, 29);
   transition: 0.2s;
 }
-.opciones-menu-lista{
+.opciones-menu-lista {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -265,9 +265,8 @@ main {
   display: none;
 }
 
-
-@media (min-width:450px) {
-  .titulo{
-    font-size: 70px;
+@media (min-width: 450px) {
+  .titulo {
+    font-size: 65px;
   }
 }
