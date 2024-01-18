@@ -12,6 +12,10 @@
   --border-radius-general: 10px;
 }
 
+body{
+  background-color: var(--paleta-base-aqua-haze) !important;
+}
+
 /* HEADER */
 
 header {
@@ -31,10 +35,10 @@ header {
   padding: 0 10px;
   font-family: var(--font-principal);
   font-size: 50px;
-  color: grey;
+  color: var(--paleta-base-elm);
 }
 .segunda-palabra-titulo {
-  color: lightslategrey;
+  color: var(--paleta-base-hb);
 }
 
 /* MAIN */
@@ -54,6 +58,23 @@ main {
   flex-direction: column;
   width: 80%;
   max-width: 550px;
+}
+.contenedor-agregar-tareas input{
+  border-color: var(--paleta-base-elm);
+}
+.contenedor-agregar-tareas input::placeholder{
+  color: var(--paleta-base-elm);
+}
+.contenedor-agregar-tareas button {
+  background-color: var(--paleta-base-elm);
+  border-color: transparent;
+}
+.contenedor-agregar-tareas button:hover{
+  background-color: var(--paleta-base-hb);
+  border-color: transparent;
+}
+.contenedor-agregar-tareas i {
+  color: var(--paleta-base-aqua-haze);
 }
 .contenedor-mensaje-error {
   display: flex;
@@ -93,14 +114,15 @@ main {
 .texto-opcion {
   margin: 0;
   font-family: var(--font-principal);
-  color: grey;
+  color: var(--paleta-base-elm);
 }
 .texto-opcion:hover {
-  color: darkgrey;
+  color: var(--paleta-base-hb);
   transition-duration: 0.2s;
 }
 .opcion-activa {
-  border-bottom: 2px solid lightgray;
+  border-bottom: 2px solid;
+  border-color: var(--paleta-base-elm);
 }
 .contenedor-boton-agregar-lista {
   margin: 0 10px;
@@ -110,10 +132,10 @@ main {
   border: none;
 }
 .icono-boton-agregar-lista {
-  color: grey;
+  color: var(--paleta-base-elm);
 }
 .icono-boton-agregar-lista:hover {
-  color: rgb(29, 29, 29);
+  color: var(--paleta-base-hb);
   transition: 0.2s;
 }
 .opciones-menu-lista {
