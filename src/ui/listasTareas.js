@@ -5,8 +5,6 @@ export function gestionarCambioDeLista (listaSeleccionada) {
 
 		const $listaTareasCompletas = document.querySelector(".contenedor-lista-tareas-completas");
 		$listaTareasCompletas.id = "oculto";
-		const $listaTareasTotales = document.querySelector(".contenedor-lista-tareas-totales");
-		$listaTareasTotales.id = "oculto";
 		mostrarListaActiva(listaSeleccionada);
 	} else if(listaSeleccionada === "Completas"){
 		const $listaTareasCompletas = document.querySelector(".contenedor-lista-tareas-completas");
@@ -14,18 +12,9 @@ export function gestionarCambioDeLista (listaSeleccionada) {
 
 		const $listaTareasPendientes = document.querySelector(".contenedor-lista-tareas-pendientes");
 		$listaTareasPendientes.id = "oculto";
-		const $listaTareasTotales = document.querySelector(".contenedor-lista-tareas-totales");
-		$listaTareasTotales.id = "oculto";
 		mostrarListaActiva(listaSeleccionada);
-	} else if(listaSeleccionada === "Total") {
-		const $listaTareasTotales = document.querySelector(".contenedor-lista-tareas-totales");
-		$listaTareasTotales.id = "";
-
-		const $listaTareasPendientes = document.querySelector(".contenedor-lista-tareas-pendientes");
-		$listaTareasPendientes.id = "oculto";
-		const $listaTareasCompletas = document.querySelector(".contenedor-lista-tareas-completas");
-		$listaTareasCompletas.id = "oculto";
-		mostrarListaActiva(listaSeleccionada);
+	} else {
+		return false;
 	}
 }
 
