@@ -137,7 +137,7 @@ main {
   transition: 0.2s;
 }
 .contenedor-boton-agregar-lista ul{
-  background-color: var(--color-fondo);
+  background-color: var(--color-blanco-contraste);
   border: 1.6px solid;
   border-color: var(--color-secundario);
   color: var(--color-secundario);
@@ -153,6 +153,9 @@ main {
 .opciones-menu-lista i {
   margin: 0 10px;
 }
+.opcion-vaciar-listas{
+  cursor: pointer;
+}
 .texto-opcion-vaciar-listas {
   display: flex;
   align-items: center;
@@ -162,7 +165,6 @@ main {
   border: 0px solid black;
   border-radius: var(--border-radius-general);
   user-select: none;
-  cursor: pointer;
 }
 
 /* Lista tareas */
@@ -206,7 +208,7 @@ main {
 .nombre-tarea {
   text-align: start;
   font-family: sans-serif;
-  color: grey;
+  color: var(--color-base-prioridad-3);
   margin: 0;
 }
 .estado-tarea {
@@ -224,11 +226,11 @@ main {
   border: none;
 }
 .icono-opciones-tareas {
-  color: var(--color-blanco-contraste) !important;
+  color: var(--color-base-prioridad-3);
 }
 .icono-opciones-tareas:hover {
-  color: var(--color-fondo) !important;
-  transition-duration: 0.3s;
+  color: var(--color-bordes-tareas) !important;
+  transition-duration: 0.2s;
 }
 .bloque-opciones-tareas,
 .bloque-borrar-tarea {
