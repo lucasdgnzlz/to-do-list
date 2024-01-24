@@ -259,6 +259,7 @@ main {
   border: 0px solid black;
   border-radius: var(--border-radius-general);
   user-select: none;
+  cursor: pointer;
 }
 .opcion-prioridad-3 {
   background-color: var(--color-base-prioridad-3);
