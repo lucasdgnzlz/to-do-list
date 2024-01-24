@@ -162,11 +162,11 @@ function cambiarColorNombreTareas($tareaSeleccionada) {
 	const $nombreTarea = $tareaSeleccionada.querySelector(".nombre-tarea");
 
 	if($tareaSeleccionada.classList.contains("prioridad-3")) {
-		$nombreTarea.style.color = "#fff";
+		$nombreTarea.style.color = "#ffffff";
 	} else if($tareaSeleccionada.classList.contains("prioridad-2")) {
-		$nombreTarea.style.color = "#fff";
+		$nombreTarea.style.color = "#ffffff";
 	} else if($tareaSeleccionada.classList.contains("prioridad-1")) {
-		$nombreTarea.style.color = "#808080";
+		$nombreTarea.style.color = "#ffffff";
 	}
 }
 
@@ -178,7 +178,7 @@ function cambiarColorIconoOpcionesTareas($tareaSeleccionada) {
 	} else if($tareaSeleccionada.classList.contains("prioridad-2")) {
 		$iconoOpcionesTarea.style.color = "#fff";
 	} else if($tareaSeleccionada.classList.contains("prioridad-1")) {
-		$iconoOpcionesTarea.style.color = "#808080";
+		$iconoOpcionesTarea.style.color = "#ffffff";
 	}
 }
 
