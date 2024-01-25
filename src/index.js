@@ -70,19 +70,6 @@ $botonVaciarListasTareas.addEventListener(("click"), () => {
 	eliminarTodasLasTareasDeLocalStorage();
 });
 
-function iniciarPagina() {
-	const DATA_A_BUSCAR = ["tareasGuardadas"];
-
-	try{
-		const tareasGuardadas = cargarTareasDeLocalStorage(DATA_A_BUSCAR);
-		enlistarTareasGuardadas(tareasGuardadas);
-		gestionarDataTareasGuardadas(tareasGuardadas);
-	} catch(e) {
-		return console.error(e);
-	}
-}
-iniciarPagina();
-
 function enlistarTareasGuardadas(dataTareas) {
 	dataTareas.forEach((tarea) => {
 		tareasGuardadasEnLocalStorage.push(tarea);
@@ -116,3 +103,16 @@ function gestionarDataTareasGuardadas(dataTareas){
 		recrearTareasGuardadas(listaALaQuePerteneceLaTareaGuardada, clasesTareaGuardada, nombreTareaGuardada);
 	});
 }
+
+function iniciarPagina() {
+	const DATA_A_BUSCAR = ["tareasGuardadas"];
+
+	try{
+		const tareasGuardadas = cargarTareasDeLocalStorage(DATA_A_BUSCAR);
+		enlistarTareasGuardadas(tareasGuardadas);
+		gestionarDataTareasGuardadas(tareasGuardadas);
+	} catch(e) {
+		return console.error(e);
+	}
+}
+iniciarPagina();
