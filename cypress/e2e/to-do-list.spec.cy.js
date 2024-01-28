@@ -32,4 +32,20 @@ context("To-Do List", () => {
 			cy.get(".boton-opciones-listas-tareas").should("be.visible");
 		});
 	});
+
+	describe("Verifica funcionalidad al agregar y eliminar tareas", () => {
+		it("Prueba agregar tarea sin escribir el nombre de la misma", () => {
+			cy.get(".texto-error-titulo-tarea")
+				.should("not.be.visible")
+				.should("not.have.text");
+
+			cy.get("#entrada-nueva-tarea").should("have.text", "");
+
+			cy.get("#boton-agregar-tarea").click();
+
+			cy.get(".texto-error-titulo-tarea")
+				.should("be.visible")
+				.should("have.text", "La tarea debe tener un nombre");
+		});
+	});
 });
