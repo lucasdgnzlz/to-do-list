@@ -39,7 +39,7 @@ context("To-Do List", () => {
 				.should("not.be.visible")
 				.should("not.have.text");
 
-			cy.get("#entrada-nueva-tarea").should("have.text", "");
+			cy.get("#entrada-nueva-tarea").should("have.value", "");
 
 			cy.get("#boton-agregar-tarea").click();
 
