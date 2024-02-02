@@ -47,5 +47,24 @@ context("To-Do List", () => {
 				.should("be.visible")
 				.should("have.text", "La tarea debe tener un nombre");
 		});
+
+		it("Prueba agregar tarea poniéndole un nombre correcto", () => {
+			cy.get(".lista-tareas-pendientes").should("not.have.descendants", "li");
+
+			cy.get("#entrada-nueva-tarea")
+				.should("have.text", "")
+				.type("Pasear al perro");
+			
+			cy.get("#entrada-nueva-tarea").should("have.value", "Pasear al perro");
+
+			cy.get("#boton-agregar-tarea").click();
+
+			cy.get(".lista-tareas-pendientes").should("have.descendants", "li");
+			cy.get(".lista-tareas-pendientes").children().should("have.length", 1);
+
+			cy.get(".lista-tareas-pendientes li")
+				.should("have.class", "tarea tarea-pendiente")
+				.contains("p", "Pasear al perro");
+		});
 	});
 });
