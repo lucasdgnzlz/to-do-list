@@ -68,5 +68,40 @@ context("To-Do List", () => {
 
 			localStorage.clear();
 		});
+
+		it("Agrega tarea luego de intentar agrega una con error en el título", () => {
+			cy.get(".texto-error-titulo-tarea")
+				.should("not.be.visible")
+				.should("not.have.text");
+
+			cy.get("#entrada-nueva-tarea").should("have.value", "");
+			cy.get("#boton-agregar-tarea").click();
+
+			cy.get(".texto-error-titulo-tarea")
+				.should("be.visible")
+				.should("have.text", "La tarea debe tener un nombre");
+
+			cy.get("#entrada-nueva-tarea").should("have.class", "is-invalid");
+
+			cy.get(".lista-tareas-pendientes").should("not.have.descendants", "li");
+
+			cy.get("#entrada-nueva-tarea").type("Pasear al perro");
+			cy.get("#boton-agregar-tarea").click();
+			
+			cy.get(".texto-error-titulo-tarea")
+				.should("not.be.visible")
+				.should("have.text", "");
+
+			cy.get("#entrada-nueva-tarea").should("not.have.class", "is-invalid");
+
+			cy.get(".lista-tareas-pendientes").should("have.descendants", "li");
+			cy.get(".lista-tareas-pendientes").children().should("have.length", 1);
+
+			cy.get(".lista-tareas-pendientes li")
+				.should("have.class", "tarea tarea-pendiente")
+				.contains("p", "Pasear al perro");
+
+			localStorage.clear();
+		});
 	});
 });
