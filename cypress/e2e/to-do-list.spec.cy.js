@@ -46,6 +46,8 @@ context("To-Do List", () => {
 			cy.get(".texto-error-titulo-tarea")
 				.should("be.visible")
 				.should("have.text", "La tarea debe tener un nombre");
+
+			cy.get("#entrada-nueva-tarea").should("have.class", "is-invalid");
 		});
 
 		it("Prueba agregar tarea poniéndole un nombre correcto", () => {
