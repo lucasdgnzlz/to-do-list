@@ -65,6 +65,8 @@ context("To-Do List", () => {
 			cy.get(".lista-tareas-pendientes li")
 				.should("have.class", "tarea tarea-pendiente")
 				.contains("p", "Pasear al perro");
+
+			localStorage.clear();
 		});
 	});
 });
