@@ -137,4 +137,46 @@ context("To-Do List", () => {
 			localStorage.clear();
 		});
 	});
+
+	describe("Verifica correcta aplicación de las prioridades a las tareas", () => {
+		it("Prueba dar prioridades a una tarea específica", () => {
+			cy.get("#entrada-nueva-tarea")
+				.should("have.text", "")
+				.type("Alimentar al gato");
+			cy.get("#entrada-nueva-tarea").should("have.value", "Alimentar al gato");
+
+			cy.get("#boton-agregar-tarea").click();
+
+			cy.get(".lista-tareas-pendientes").children().should("have.length", 1);
+			cy.get(".lista-tareas-pendientes").children().should("be.visible");
+
+			cy.get(".lista-tareas-pendientes li")
+				.should("have.class", "tarea tarea-pendiente")
+				.contains("p", "Alimentar al gato");
+
+			cy.get(".boton-opciones-tarea")
+				.should("be.visible")
+				.click();
+
+			cy.get(".contenedor-opciones-tarea ul").should("be.visible");
+			cy.get(".contenedor-opciones-tarea ul").children().should("have.length", 4);
+			cy.get(".opcion-prioridad-3").should("be.visible").click();
+
+			cy.get(".tarea-pendiente").should("have.class", "prioridad-3");
+
+			cy.get(".boton-opciones-tarea")
+				.should("be.visible")
+				.click();
+
+			cy.get(".opcion-prioridad-2").should("be.visible").click();
+			cy.get(".tarea-pendiente").should("have.class", "prioridad-2");
+
+			cy.get(".boton-opciones-tarea")
+				.should("be.visible")
+				.click();
+
+			cy.get(".opcion-prioridad-1").should("be.visible").click();
+			cy.get(".tarea-pendiente").should("have.class", "prioridad-1");
+		});
+	});
 });
