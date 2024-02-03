@@ -105,5 +105,36 @@ context("To-Do List", () => {
 
 			localStorage.clear();
 		});
+
+		it("Prueba agregar tarea y eliminarla", () => {
+			cy.get(".lista-tareas-pendientes").should("not.have.descendants", "li");
+
+			cy.get("#entrada-nueva-tarea")
+				.should("have.text", "")
+				.type("Alimentar al gato");
+			cy.get("#entrada-nueva-tarea").should("have.value", "Alimentar al gato");
+
+			cy.get("#boton-agregar-tarea").click();
+
+			cy.get(".lista-tareas-pendientes").should("have.descendants", "li");
+			cy.get(".lista-tareas-pendientes").children().should("have.length", 1);
+			cy.get(".lista-tareas-pendientes").children().should("be.visible");
+
+			cy.get(".lista-tareas-pendientes li")
+				.should("have.class", "tarea tarea-pendiente")
+				.contains("p", "Alimentar al gato");
+
+			cy.get(".boton-opciones-tarea")
+				.should("be.visible")
+				.click();
+
+			cy.get(".contenedor-opciones-tarea ul").should("be.visible");
+			cy.get(".contenedor-opciones-tarea ul").children().should("have.length", 4);
+			cy.get(".bloque-borrar-tarea").should("be.visible").click();
+
+			cy.get(".lista-tareas-pendientes").should("not.have.descendants", "li");
+
+			localStorage.clear();
+		});
 	});
 });
