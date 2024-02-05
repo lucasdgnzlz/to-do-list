@@ -168,7 +168,7 @@ context("To-Do List", () => {
 		});
 	});
 
-	describe("Verifica correcta aplicación de las prioridades a las tareas", () => {
+	describe("Verifica correcta aplicación de los niveles de prioridades a las tareas", () => {
 		it("Prueba dar prioridades a una tarea específica", () => {
 			cy.get("#entrada-nueva-tarea")
 				.should("have.text", "")
