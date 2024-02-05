@@ -211,4 +211,29 @@ context("To-Do List", () => {
 			localStorage.clear();
 		});
 	});
+
+	describe.only("Comprueba funcionamiento de las listas de tareas", () => {
+		it("Verifica funcionamiento de cambio de listas", () => {
+			cy.get(".opcion-pendientes")
+				.should("be.visible")
+				.should("have.class", "opcion-activa");
+			cy.get(".lista-tareas-pendientes").should("be.visible");
+
+			cy.get(".opcion-completas")
+				.should("be.visible")
+				.should("not.have.class", "opcion-activa");
+			cy.get(".lista-tareas-completas").should("not.be.visible");
+
+			cy.get(".opcion-completas").click();
+			cy.get(".opcion-completas")
+				.should("be.visible")
+				.should("have.class", "opcion-activa");
+			cy.get(".lista-tareas-completas").should("be.visible");
+
+			cy.get(".opcion-pendientes")
+				.should("be.visible")
+				.should("not.have.class", "opcion-activa");
+			cy.get(".lista-tareas-pendientes").should("not.be.visible");
+		});
+	});
 });
