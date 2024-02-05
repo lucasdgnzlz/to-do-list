@@ -136,6 +136,36 @@ context("To-Do List", () => {
 
 			localStorage.clear();
 		});
+
+		it("Prueba agregar varias tareas, y eliminarlas todas", () => {
+			cy.get(".lista-tareas-pendientes").should("not.have.descendants", "li");
+
+			cy.get("#entrada-nueva-tarea")
+				.should("have.text", "")
+				.type("Alimentar al gato");
+			cy.get("#entrada-nueva-tarea").should("have.value", "Alimentar al gato");
+
+			cy.get("#boton-agregar-tarea").click();
+
+			cy.get("#entrada-nueva-tarea").type("Comprar ropa");
+			cy.get("#entrada-nueva-tarea").should("have.value", "Comprar ropa");
+
+			cy.get("#boton-agregar-tarea").click();
+
+			cy.get("#entrada-nueva-tarea").type("Dominar al mundo");
+			cy.get("#entrada-nueva-tarea").should("have.value", "Dominar al mundo");
+
+			cy.get("#boton-agregar-tarea").click();
+
+			cy.get(".lista-tareas-pendientes").should("have.descendants", "li");
+			cy.get(".lista-tareas-pendientes").children().should("have.length", 3);
+			cy.get(".lista-tareas-pendientes").children().should("be.visible");
+
+			cy.get(".boton-opciones-listas-tareas").should("be.visible").click();
+			cy.get(".opcion-vaciar-listas").should("be.visible").click();
+
+			cy.get(".lista-tareas-pendientes").should("not.have.descendants", "li");
+		});
 	});
 
 	describe("Verifica correcta aplicación de las prioridades a las tareas", () => {
