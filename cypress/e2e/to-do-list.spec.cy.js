@@ -207,6 +207,8 @@ context("To-Do List", () => {
 
 			cy.get(".opcion-prioridad-1").should("be.visible").click();
 			cy.get(".tarea-pendiente").should("have.class", "prioridad-1");
+
+			localStorage.clear();
 		});
 	});
 });
