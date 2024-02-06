@@ -280,7 +280,7 @@ context("To-Do List", () => {
 		});
 	});
 
-	describe.only("Comprueba guardado de tareas en localStorage", () => {
+	describe("Comprueba guardado de tareas en localStorage", () => {
 		it("Prueba que las tareas pendientes se guarden correctamente en localStorage", () => {
 			cy.get(".lista-tareas-pendientes").should("not.have.descendants", "li");
 
