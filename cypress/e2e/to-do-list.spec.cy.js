@@ -235,5 +235,48 @@ context("To-Do List", () => {
 				.should("not.have.class", "opcion-activa");
 			cy.get(".lista-tareas-pendientes").should("not.be.visible");
 		});
+
+		it("Comprueba correcto funcionamiento de completado de tareas", () => {
+			cy.get(".lista-tareas-pendientes").should("be.visible");
+
+			cy.get("#entrada-nueva-tarea").should("be.visible").type("Comer más sano");
+			cy.get("#boton-agregar-tarea").should("be.visible").click();
+
+			cy.get(".lista-tareas-pendientes").should("have.descendants", "li");
+			cy.get(".lista-tareas-pendientes").children().should("have.length", 1);
+			cy.get(".lista-tareas-completas").should("not.have.descendants", "li");
+
+			cy.get(".lista-tareas-pendientes li")
+				.should("have.class", "tarea tarea-pendiente")
+				.contains("p", "Comer más sano");
+			
+			cy.get(".lista-tareas-pendientes li .estado-tarea")
+				.should("be.visible")
+				.click();
+
+			cy.get(".lista-tareas-pendientes").should("not.have.descendants", "li");
+			cy.get(".lista-tareas-completas").should("have.descendants", "li");
+			cy.get(".lista-tareas-completas").children().should("have.length", 1);
+
+			cy.get(".lista-tareas-completas li")
+				.should("not.be.visible")
+				.should("have.class", "tarea tarea-completa")
+				.contains("p", "Comer más sano");
+
+			cy.get(".lista-tareas-pendientes").should("be.visible");
+			cy.get(".lista-tareas-completas").should("not.be.visible");
+
+			cy.get(".opcion-completas").should("be.visible").click();
+
+			cy.get(".lista-tareas-pendientes").should("not.be.visible");
+			cy.get(".lista-tareas-completas").should("be.visible");
+
+			cy.get(".opcion-pendientes").should("be.visible").click();
+
+			cy.get(".lista-tareas-pendientes").should("be.visible");
+			cy.get(".lista-tareas-completas").should("not.be.visible");
+
+			localStorage.clear();
+		});
 	});
 });
