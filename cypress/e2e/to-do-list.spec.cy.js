@@ -212,7 +212,7 @@ context("To-Do List", () => {
 		});
 	});
 
-	describe.only("Comprueba funcionamiento de las listas de tareas", () => {
+	describe("Comprueba funcionamiento de las listas de tareas", () => {
 		it("Verifica funcionamiento de cambio de listas", () => {
 			cy.get(".opcion-pendientes")
 				.should("be.visible")
@@ -275,6 +275,34 @@ context("To-Do List", () => {
 
 			cy.get(".lista-tareas-pendientes").should("be.visible");
 			cy.get(".lista-tareas-completas").should("not.be.visible");
+
+			localStorage.clear();
+		});
+	});
+
+	describe.only("Comprueba guardado de tareas en localStorage", () => {
+		it("Prueba que las tareas pendientes se guarden correctamente en localStorage", () => {
+			cy.get(".lista-tareas-pendientes").should("not.have.descendants", "li");
+
+			cy.get("#entrada-nueva-tarea")
+				.should("be.visible")
+				.type("Ejercitarse");
+			cy.get("#boton-agregar-tarea").should("be.visible").click();
+
+			cy.get(".lista-tareas-pendientes").should("have.descendants", "li");
+			cy.get(".lista-tareas-pendientes").children().should("have.length", 1);
+
+			cy.get(".lista-tareas-pendientes li")
+				.should("have.class", "tarea tarea-pendiente")
+				.contains("p", "Ejercitarse");
+
+			cy.reload();
+
+			cy.get(".lista-tareas-pendientes").should("have.descendants", "li");
+			cy.get(".lista-tareas-pendientes").children().should("have.length", 1);
+			cy.get(".lista-tareas-pendientes li")
+				.should("have.class", "tarea tarea-pendiente")
+				.contains("p", "Ejercitarse");
 
 			localStorage.clear();
 		});
