@@ -15,9 +15,11 @@ const $opcionesListasDeTareas = document.querySelectorAll(".texto-opcion");
 const $botonVaciarListasTareas = document.querySelector(".opcion-vaciar-listas");
 
 $botonAgregarTarea.addEventListener(("click"), () => {
+	const $entradaTitulo = document.querySelector("#entrada-nueva-tarea");
 	activarEventoBoton($botonAgregarTarea);
 
 	const tituloNuevaTarea = document.querySelector("#entrada-nueva-tarea").value;
+	$entradaTitulo.value = "";
 	const listaALaQueAgregarTarea = "lista-tareas-pendientes";
 	const contextoTarea = "nueva tarea";
 

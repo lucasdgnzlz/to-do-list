@@ -109,6 +109,9 @@ export function borrarErrorTituloTarea(){
 	const $entradaTitulo = document.querySelector("#entrada-nueva-tarea");
 	$entradaTitulo.classList.remove("is-invalid");
 
+	const $textoErrorTarea = document.querySelector(".texto-error-titulo-tarea");
+	$textoErrorTarea.textContent = "";
+
 	const $contenedorMensajeError = document.querySelector(".contenedor-mensaje-error");
 	$contenedorMensajeError.id = "oculto";
 }
