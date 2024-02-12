@@ -352,3 +352,17 @@ export function recrearTareasGuardadas(listaALaQuePerteneceLaTareaGuardada, clas
 	cambiarColorNombreTareas(nuevaTarea);
 	cambiarColorIconoOpcionesTareas(nuevaTarea);
 }
+
+export function comprobarRepeticionDeTareas(nombreNuevaTarea) {
+	const $totalDeTareas = document.querySelectorAll(".nombre-tarea");
+	let confirmacionDeRepeticion;
+
+	$totalDeTareas.forEach((tarea) => {
+		const nombreTarea = tarea.textContent;
+		if(nombreTarea === nombreNuevaTarea){
+			confirmacionDeRepeticion = true;
+		}
+	});
+
+	return confirmacionDeRepeticion;
+}

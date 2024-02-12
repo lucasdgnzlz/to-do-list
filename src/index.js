@@ -1,6 +1,6 @@
 import {activarEventoBoton} from "./ui/botonAgregarTarea.js";
 
-import {agregarNuevaTarea, mostrarErrorTituloTarea, borrarErrorTituloTarea, gestionarOpcionesDeLasTareas, gestionarTareaCompleta, gestionarTareaReiniciada, borrarTarea, recrearTareasGuardadas} from "../src/ui/tareas.js";
+import {agregarNuevaTarea, mostrarErrorTituloTarea, borrarErrorTituloTarea, gestionarOpcionesDeLasTareas, gestionarTareaCompleta, gestionarTareaReiniciada, borrarTarea, recrearTareasGuardadas, comprobarRepeticionDeTareas} from "../src/ui/tareas.js";
 
 import {gestionarCambioDeLista} from "./ui/listasTareas.js";
 
@@ -19,6 +19,13 @@ $botonAgregarTarea.addEventListener(("click"), () => {
 	activarEventoBoton($botonAgregarTarea);
 
 	const tituloNuevaTarea = document.querySelector("#entrada-nueva-tarea").value;
+
+	if(comprobarRepeticionDeTareas(tituloNuevaTarea) === true){
+		const error = "Ya existe una tarea con ese mismo nombre";
+		mostrarErrorTituloTarea(error);
+		return false;
+	}
+
 	$entradaTitulo.value = "";
 	const listaALaQueAgregarTarea = "lista-tareas-pendientes";
 	const contextoTarea = "nueva tarea";
