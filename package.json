@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start-server": "http-server",
+    "test:dev": "jest --watchAll",
     "test:cypress:open": "cypress open",
     "test:cypress:run": "cypress run",
     "start-tests": "run-p start-server test:cypress:open",
