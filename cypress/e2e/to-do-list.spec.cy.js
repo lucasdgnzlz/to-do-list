@@ -137,6 +137,35 @@ context("To-Do List", () => {
 			localStorage.clear();
 		});
 
+		it("", () => {
+			cy.get(".lista-tareas-pendientes").should("not.have.descendants", "li");
+
+			cy.get("#entrada-nueva-tarea")
+				.should("have.text", "")
+				.type("Alimentar al gato");
+			cy.get("#boton-agregar-tarea").click();
+
+			cy.get(".lista-tareas-pendientes").should("have.descendants", "li");
+			cy.get(".lista-tareas-pendientes").children().should("have.length", 1);
+			cy.get(".lista-tareas-pendientes").children().should("be.visible");
+
+			cy.get(".lista-tareas-pendientes li")
+				.should("have.class", "tarea tarea-pendiente")
+				.contains("p", "Alimentar al gato");
+
+			cy.get("#entrada-nueva-tarea")
+				.should("have.text", "")
+				.type("Alimentar al gato");
+			
+			cy.get("#boton-agregar-tarea").click();
+			
+			cy.get(".texto-error-titulo-tarea")
+				.should("be.visible")
+				.should("have.text", "Ya existe una tarea con ese mismo nombre");
+			
+			cy.get(".lista-tareas-pendientes").children().should("have.length", 1);
+		});
+
 		it("Prueba agregar varias tareas, y eliminarlas todas", () => {
 			cy.get(".lista-tareas-pendientes").should("not.have.descendants", "li");
 
