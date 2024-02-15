@@ -53,3 +53,24 @@ describe("mostrarErrorTituloTarea", () => {
 		expect($entradaTitulo.classList.contains("is-invalid")).toBe(true);
 	});
 });
+
+describe("borrarErrorTituloTarea", () => {
+	it("Deja de mostrar el error del titulo de una nueva tarea", () => {
+		document.body.innerHTML = listasTareas1Fixture;
+
+		const $textoErrorTituloTarea = document.querySelector(".texto-error-titulo-tarea");
+		expect($textoErrorTituloTarea.textContent).toBe("");
+		const $entradaTitulo = document.querySelector("#entrada-nueva-tarea");
+		expect($entradaTitulo.classList.contains("is-invalid")).toBe(false);
+
+		const ERROR_TITULO = "El nombre de la tarea no es válido";
+		mostrarErrorTituloTarea(ERROR_TITULO);
+
+		expect($textoErrorTituloTarea.textContent).toBe("El nombre de la tarea no es válido");
+		expect($entradaTitulo.classList.contains("is-invalid")).toBe(true);
+
+		borrarErrorTituloTarea();
+		expect($textoErrorTituloTarea.textContent).toBe("");
+		expect($entradaTitulo.classList.contains("is-invalid")).toBe(false);
+	});
+});
