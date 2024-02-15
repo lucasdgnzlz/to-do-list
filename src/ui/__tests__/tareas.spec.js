@@ -36,3 +36,20 @@ describe("agregarNuevaTarea", () => {
 		expect($listaTareasCompletas.children.length).toBe(1);
 	});
 });
+
+describe("mostrarErrorTituloTarea", () => {
+	it("Debería mostrar el error en el título al querer agregar una tarea", () => {
+		document.body.innerHTML = listasTareas1Fixture;
+
+		const $textoErrorTituloTarea = document.querySelector(".texto-error-titulo-tarea");
+		expect($textoErrorTituloTarea.textContent).toBe("");
+		const $entradaTitulo = document.querySelector("#entrada-nueva-tarea");
+		expect($entradaTitulo.classList.contains("is-invalid")).toBe(false);
+
+		const ERROR_TITULO = "El nombre de la tarea no es válido";
+		mostrarErrorTituloTarea(ERROR_TITULO);
+
+		expect($textoErrorTituloTarea.textContent).toBe("El nombre de la tarea no es válido");
+		expect($entradaTitulo.classList.contains("is-invalid")).toBe(true);
+	});
+});
