@@ -74,3 +74,34 @@ describe("borrarErrorTituloTarea", () => {
 		expect($entradaTitulo.classList.contains("is-invalid")).toBe(false);
 	});
 });
+
+describe("gestionarOpcionesDeLasTareas", () => {
+	beforeEach(() => {
+		document.body.innerHTML = listasTareas1Fixture;
+	});
+
+	it("Prueba funcionalidad al darle prioridad nivel 3 a una tarea", () => {
+		const LISTA_SELECCIONADA = "lista-tareas-pendientes";
+		const TITULO_NUEVA_TAREA = "Hacer ejercicio";
+		
+		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
+		expect($listaTareasPendientes.children.length).toBe(0);
+
+		agregarNuevaTarea(LISTA_SELECCIONADA, TITULO_NUEVA_TAREA);
+		expect($listaTareasPendientes.children.length).toBe(1);
+
+		const $tareaCreada = document.querySelector(".tarea-pendiente");
+		expect($tareaCreada.classList.contains("prioridad-3")).toBe(false);
+
+		const eventoClick = {
+			target: {
+				classList: {
+					contains: className => className === "opcion-prioridad-3"
+				}
+			}
+		};
+
+		gestionarOpcionesDeLasTareas($tareaCreada, eventoClick);
+		expect($tareaCreada.classList.contains("prioridad-3")).toBe(true);
+	});
+});
