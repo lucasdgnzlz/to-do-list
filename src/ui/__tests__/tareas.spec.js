@@ -104,4 +104,29 @@ describe("gestionarOpcionesDeLasTareas", () => {
 		gestionarOpcionesDeLasTareas($tareaCreada, eventoClick);
 		expect($tareaCreada.classList.contains("prioridad-3")).toBe(true);
 	});
+
+	it("Prueba funcionalidad al asignarle la prioridad nivel 2 a una tarea", () => {
+		const LISTA_SELECCIONADA = "lista-tareas-pendientes";
+		const TITULO_NUEVA_TAREA = "Hacer ejercicio";
+		
+		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
+		expect($listaTareasPendientes.children.length).toBe(0);
+
+		agregarNuevaTarea(LISTA_SELECCIONADA, TITULO_NUEVA_TAREA);
+		expect($listaTareasPendientes.children.length).toBe(1);
+
+		const $tareaCreada = document.querySelector(".tarea-pendiente");
+		expect($tareaCreada.classList.contains("prioridad-2")).toBe(false);
+
+		const eventoClick = {
+			target: {
+				classList: {
+					contains: className => className === "opcion-prioridad-2"
+				}
+			}
+		};
+
+		gestionarOpcionesDeLasTareas($tareaCreada, eventoClick);
+		expect($tareaCreada.classList.contains("prioridad-2")).toBe(true);
+	});
 });
