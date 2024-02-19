@@ -178,4 +178,26 @@ describe("gestionarOpcionesDeLasTareas", () => {
 		gestionarOpcionesDeLasTareas($tareaCreada, eventoClick);
 		expect($listaTareasPendientes.children.length).toBe(0);
 	});
+
+	it("Prueba que la función devuelva false en caso de no encontrar una opción elegida", () => {
+		const LISTA_SELECCIONADA = "lista-tareas-pendientes";
+		const TITULO_NUEVA_TAREA = "Hacer ejercicio";
+		
+		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
+		expect($listaTareasPendientes.children.length).toBe(0);
+
+		agregarNuevaTarea(LISTA_SELECCIONADA, TITULO_NUEVA_TAREA);
+		expect($listaTareasPendientes.children.length).toBe(1);
+
+		const $tareaCreada = document.querySelector(".tarea-pendiente");
+		const eventoClick = {
+			target: {
+				classList: {
+					contains: className => className === "nada"
+				}
+			}
+		};
+
+		expect(gestionarOpcionesDeLasTareas($tareaCreada, eventoClick)).toBe(false);
+	});
 });
