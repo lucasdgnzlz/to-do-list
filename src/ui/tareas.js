@@ -246,7 +246,7 @@ function agregarMismasClasesATareaNueva(contextoLista, $tareaSeleccionada) {
 	cambiarColorIconoOpcionesTareas($tareaNueva);
 }
 
-export function gestionarTareaReiniciada(e, $tareaSeleccionada){
+export function gestionarTareaReiniciada($tareaSeleccionada){
 	const listaALaQueAgregarTarea = "lista-tareas-pendientes";
 	const nombreTarea = $tareaSeleccionada.querySelector(".nombre-tarea").textContent;
 	

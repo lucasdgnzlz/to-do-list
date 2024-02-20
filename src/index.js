@@ -56,7 +56,7 @@ $contenedorTareasCompletas.addEventListener(("click"), (e) => {
 	const $tareaSeleccionada = e.target.closest(".tarea");
 
 	if(e.target.classList.contains("estado-tarea")) {
-		gestionarTareaReiniciada(e, $tareaSeleccionada);
+		gestionarTareaReiniciada($tareaSeleccionada);
 	} else {
 		gestionarOpcionesDeLasTareas($tareaSeleccionada, e);
 	}
