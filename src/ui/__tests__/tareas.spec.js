@@ -200,4 +200,62 @@ describe("gestionarOpcionesDeLasTareas", () => {
 
 		expect(gestionarOpcionesDeLasTareas($tareaCreada, eventoClick)).toBe(false);
 	});
+
+	it("Prueba cambiar de prioridad una tarea teniendo otras asignada", () => {
+		const LISTA_SELECCIONADA = "lista-tareas-pendientes";
+		const TITULO_NUEVA_TAREA = "Hacer ejercicio";
+		
+		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
+		expect($listaTareasPendientes.children.length).toBe(0);
+
+		agregarNuevaTarea(LISTA_SELECCIONADA, TITULO_NUEVA_TAREA);
+		expect($listaTareasPendientes.children.length).toBe(1);
+
+		const $tareaCreada = document.querySelector(".tarea-pendiente");
+		expect($tareaCreada.classList.contains("prioridad-1")).toBe(false);
+
+		const primerEventoClick = {
+			target: {
+				classList: {
+					contains: className => className === "opcion-prioridad-1"
+				}
+			}
+		};
+
+		gestionarOpcionesDeLasTareas($tareaCreada, primerEventoClick);
+		expect($tareaCreada.classList.contains("prioridad-1")).toBe(true);
+
+		const segundoEventoClick = {
+			target: {
+				classList: {
+					contains: className => className === "opcion-prioridad-2"
+				}
+			}
+		};
+
+		gestionarOpcionesDeLasTareas($tareaCreada, segundoEventoClick);
+		expect($tareaCreada.classList.contains("prioridad-2")).toBe(true);
+
+		const tercerEventoClick = {
+			target: {
+				classList: {
+					contains: className => className === "opcion-prioridad-3"
+				}
+			}
+		};
+
+		gestionarOpcionesDeLasTareas($tareaCreada, tercerEventoClick);
+		expect($tareaCreada.classList.contains("prioridad-3")).toBe(true);
+
+		const cuartoEventoClick = {
+			target: {
+				classList: {
+					contains: className => className === "opcion-prioridad-1"
+				}
+			}
+		};
+
+		gestionarOpcionesDeLasTareas($tareaCreada, cuartoEventoClick);
+		expect($tareaCreada.classList.contains("prioridad-1")).toBe(true);
+	});
 });
