@@ -259,3 +259,28 @@ describe("gestionarOpcionesDeLasTareas", () => {
 		expect($tareaCreada.classList.contains("prioridad-1")).toBe(true);
 	});
 });
+
+describe("gestionarTareaCompleta", () => {
+	it("Prueba completar tarea", () => {
+		document.body.innerHTML = listasTareas1Fixture;
+
+		const LISTA_SELECCIONADA = "lista-tareas-pendientes";
+		const TITULO_NUEVA_TAREA = "Completar tareas";
+		
+		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
+		const $listaTareasCompletas = document.querySelector(".lista-tareas-completas");
+
+		expect($listaTareasPendientes.children.length).toBe(0);
+		expect($listaTareasCompletas.children.length).toBe(0);
+
+		agregarNuevaTarea(LISTA_SELECCIONADA, TITULO_NUEVA_TAREA);
+		expect($listaTareasPendientes.children.length).toBe(1);
+		expect($listaTareasCompletas.children.length).toBe(0);
+
+		const $tareaCreada = document.querySelector(".tarea-pendiente");
+
+		gestionarTareaCompleta($tareaCreada);
+		expect($listaTareasPendientes.children.length).toBe(0);
+		expect($listaTareasCompletas.children.length).toBe(1);
+	});
+});
