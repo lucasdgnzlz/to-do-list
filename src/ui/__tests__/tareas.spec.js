@@ -315,3 +315,23 @@ describe("gestionarTareaReiniciada", () => {
 		expect($listaTareasCompletas.children.length).toBe(0);
 	});
 });
+
+describe("recrearTareasGuardadas", () => {
+	it("Prueba recrear tarea pendiente guardada en localStorage", () => {
+		document.body.innerHTML = listasTareas1Fixture;
+
+		const listaPertenecienteTarea = "lista-tareas-pendientes";
+		const clasesTareaGuardadaEnLocalStorage = {
+			"0": "tarea",
+			"1": "tarea-pendiente",
+			"2": "prioridad-2"
+		};
+		const nombreTareaGuardadaEnLocalStorage = "Sacar la basura";
+
+		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
+		expect($listaTareasPendientes.children.length).toBe(0);
+
+		recrearTareasGuardadas(listaPertenecienteTarea, clasesTareaGuardadaEnLocalStorage, nombreTareaGuardadaEnLocalStorage);
+		expect($listaTareasPendientes.children.length).toBe(1);
+	});
+});
