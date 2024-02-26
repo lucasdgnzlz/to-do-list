@@ -317,9 +317,11 @@ describe("gestionarTareaReiniciada", () => {
 });
 
 describe("recrearTareasGuardadas", () => {
-	it("Prueba recrear tarea pendiente guardada en localStorage", () => {
+	beforeEach(() => {
 		document.body.innerHTML = listasTareas1Fixture;
+	});
 
+	it("Prueba recrear tarea pendiente guardada en localStorage", () => {
 		const listaPertenecienteTarea = "lista-tareas-pendientes";
 		const clasesTareaGuardadaEnLocalStorage = {
 			"0": "tarea",
@@ -333,5 +335,21 @@ describe("recrearTareasGuardadas", () => {
 
 		recrearTareasGuardadas(listaPertenecienteTarea, clasesTareaGuardadaEnLocalStorage, nombreTareaGuardadaEnLocalStorage);
 		expect($listaTareasPendientes.children.length).toBe(1);
+	});
+
+	it("Prueba recrear tarea completa guardada en localStorage", () => {
+		const listaPertenecienteTarea = "lista-tareas-completas";
+		const clasesTareaGuardadaEnLocalStorage = {
+			"0": "tarea",
+			"1": "tarea-pendiente",
+			"2": "prioridad-2"
+		};
+		const nombreTareaGuardadaEnLocalStorage = "Sacar la basura";
+
+		const $listaTareasCompletas = document.querySelector(".lista-tareas-completas");
+		expect($listaTareasCompletas.children.length).toBe(0);
+
+		recrearTareasGuardadas(listaPertenecienteTarea, clasesTareaGuardadaEnLocalStorage, nombreTareaGuardadaEnLocalStorage);
+		expect($listaTareasCompletas.children.length).toBe(1);
 	});
 });
