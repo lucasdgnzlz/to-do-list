@@ -361,6 +361,8 @@ export function comprobarRepeticionDeTareas(nombreNuevaTarea) {
 		const nombreTarea = tarea.textContent;
 		if(nombreTarea === nombreNuevaTarea){
 			confirmacionDeRepeticion = true;
+		} else{
+			confirmacionDeRepeticion = false;
 		}
 	});
 
