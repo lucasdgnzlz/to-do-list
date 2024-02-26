@@ -260,6 +260,25 @@ describe("gestionarOpcionesDeLasTareas", () => {
 	});
 });
 
+describe("borrarTarea", () => {
+	it("Prueba borrar tarea ya creada", () => {
+		document.body.innerHTML = listasTareas1Fixture;
+
+		const LISTA_SELECCIONADA = "lista-tareas-pendientes";
+		const TITULO_NUEVA_TAREA = "Completar tareas";
+		
+		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
+
+		expect($listaTareasPendientes.children.length).toBe(0);
+		agregarNuevaTarea(LISTA_SELECCIONADA, TITULO_NUEVA_TAREA);
+		expect($listaTareasPendientes.children.length).toBe(1);
+
+		const $tareaCreada = document.querySelector(".tarea");
+		borrarTarea($tareaCreada);
+		expect($listaTareasPendientes.children.length).toBe(0);
+	});
+});
+
 describe("gestionarTareaCompleta", () => {
 	it("Prueba completar tarea", () => {
 		document.body.innerHTML = listasTareas1Fixture;
