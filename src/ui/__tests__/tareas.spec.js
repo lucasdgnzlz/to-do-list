@@ -372,4 +372,18 @@ describe("comprobarRepeticionDeTareas", () => {
 		const nombreTareaAVerificar = "Hacer ejercicio";
 		expect(comprobarRepeticionDeTareas(nombreTareaAVerificar)).toBe(true);
 	});
+
+	it("Prueba verificar la repetición de tareas con un nombre no existente", () => {
+		const LISTA_SELECCIONADA = "lista-tareas-pendientes";
+		const TITULO_NUEVA_TAREA = "Hacer ejercicio";
+		
+		const $listaTareasPendientes = document.querySelector(".lista-tareas-pendientes");
+		expect($listaTareasPendientes.children.length).toBe(0);
+
+		agregarNuevaTarea(LISTA_SELECCIONADA, TITULO_NUEVA_TAREA);
+		expect($listaTareasPendientes.children.length).toBe(1);
+
+		const nombreTareaAVerificar = "Hacer la tarea";
+		expect(comprobarRepeticionDeTareas(nombreTareaAVerificar)).toBe(false);
+	});
 });
