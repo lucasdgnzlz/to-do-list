@@ -11,10 +11,6 @@ import listasTareas1Fixture from "../../../cypress/fixtures/listasTareas1.fixtur
 import listasTareas3Fixture from "../../../cypress/fixtures/listasTareas3.fixture";
 
 describe("guardarTareasEnLocalStorage", () => {
-	beforeEach(() => {
-		localStorage.clear();
-	});
-
 	it("Prueba guardar datos de una nueva tarea en localStorage", () => {
 		document.body.innerHTML = listasTareas3Fixture;
 		const CONTEXTO_TAREA = "nueva tarea";
@@ -26,5 +22,6 @@ describe("guardarTareasEnLocalStorage", () => {
 
 		guardarTareasEnLocalStorage(CONTEXTO_TAREA, NOMBRE_TAREA);
 		expect(JSON.parse(localStorage.getItem(NOMBRE_KEY_DATOS_LOCAL_STORAGE))).toEqual(datosAComparar);
+		localStorage.clear();
 	});
 });
