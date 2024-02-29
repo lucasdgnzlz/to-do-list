@@ -34,4 +34,12 @@ describe("cargarTareasDeLocalStorage", () => {
 			cargarTareasDeLocalStorage(parametroDePrueba);
 		}).toThrow(new Error ("Se necesita el nombre de la data que se requiere para cargar la misma"));
 	});
+
+	it("Debería devolver un error al cargar los datos y que el resultado sea null", () => {
+		const parametroDePrueba = "tareasGuardadas";
+
+		expect(() => {
+			cargarTareasDeLocalStorage(parametroDePrueba);
+		}).toThrow(new Error (`La data ${parametroDePrueba} no se encontro en el localStorage`));
+	});
 });
