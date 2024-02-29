@@ -25,3 +25,13 @@ describe("guardarTareasEnLocalStorage", () => {
 		localStorage.clear();
 	});
 });
+
+describe("cargarTareasDeLocalStorage", () => {
+	it("Debería devolver un error al llamar a la función con un parámetro undefined", () => {
+		const parametroDePrueba = undefined;
+
+		expect(() => {
+			cargarTareasDeLocalStorage(parametroDePrueba);
+		}).toThrow(new Error ("Se necesita el nombre de la data que se requiere para cargar la misma"));
+	});
+});
