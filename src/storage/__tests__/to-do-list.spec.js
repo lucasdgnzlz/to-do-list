@@ -19,7 +19,6 @@ describe("guardarTareasEnLocalStorage", () => {
 		const datosAComparar = [{tarea: {nombreTarea: "Hacer ejercicio", clasesTarea: {"0": "tarea", "1": "tarea-pendiente"}}}];
 		const NOMBRE_KEY_DATOS_LOCAL_STORAGE = "tareasGuardadas";
 
-
 		guardarTareasEnLocalStorage(CONTEXTO_TAREA, NOMBRE_TAREA);
 		expect(JSON.parse(localStorage.getItem(NOMBRE_KEY_DATOS_LOCAL_STORAGE))).toEqual(datosAComparar);
 		localStorage.clear();
@@ -41,5 +40,17 @@ describe("cargarTareasDeLocalStorage", () => {
 		expect(() => {
 			cargarTareasDeLocalStorage(parametroDePrueba);
 		}).toThrow(new Error (`La data ${parametroDePrueba} no se encontro en el localStorage`));
+	});
+
+	it("Debería cargar correctamente la data guardada en localStorage", () => {
+		document.body.innerHTML = listasTareas3Fixture;
+		const CONTEXTO_TAREA = "nueva tarea";
+		const NOMBRE_TAREA = "Hacer ejercicio";
+
+		const dataARecibir = [{"tarea": {"clasesTarea": {"0": "tarea", "1": "tarea-pendiente"}, "nombreTarea": "Hacer ejercicio"}}, {"tarea": {"clasesTarea": {"0": "tarea", "1": "tarea-pendiente"}, "nombreTarea": "Hacer ejercicio"}}];
+		const dataABuscar = "tareasGuardadas";
+
+		guardarTareasEnLocalStorage(CONTEXTO_TAREA, NOMBRE_TAREA);
+		expect(cargarTareasDeLocalStorage(dataABuscar)).toEqual(dataARecibir);
 	});
 });
