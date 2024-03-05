@@ -52,5 +52,7 @@ describe("cargarTareasDeLocalStorage", () => {
 
 		guardarTareasEnLocalStorage(CONTEXTO_TAREA, NOMBRE_TAREA);
 		expect(cargarTareasDeLocalStorage(dataABuscar)).toEqual(dataARecibir);
+
+		localStorage.clear();
 	});
 });
