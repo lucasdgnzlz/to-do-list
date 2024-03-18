@@ -7,8 +7,8 @@
 import "jest-localstorage-mock";
 
 import { guardarTareasEnLocalStorage, cargarTareasDeLocalStorage, actualizarDatosTareaGuardada, eliminarTareaDeLocalStorage, eliminarTodasLasTareasDeLocalStorage } from "../to-do-list";
-import listasTareas1Fixture from "../../../cypress/fixtures/listasTareas1.fixture";
 import listasTareas3Fixture from "../../../cypress/fixtures/listasTareas3.fixture";
+import listasTareas4Fixture from "../../../cypress/fixtures/listasTareas4.fixture";
 
 describe("guardarTareasEnLocalStorage", () => {
 	it("Prueba guardar datos de una nueva tarea en localStorage", () => {
@@ -54,5 +54,34 @@ describe("cargarTareasDeLocalStorage", () => {
 		expect(cargarTareasDeLocalStorage(dataABuscar)).toEqual(dataARecibir);
 
 		localStorage.clear();
+	});
+});
+
+describe("actualizarDatosTareaGuardada", () => {
+	beforeEach(() => {
+		document.body.innerHTML = listasTareas4Fixture;
+		localStorage.clear();
+	});
+
+	it("Actualiza datos de las tareas guardadas en localStorage", () => {
+		const tareaInicial = {
+			tarea: {
+				nombreTarea: "Hacer ejercicio",
+				clasesTarea: { "0": "tarea", "1": "tarea-pendiente" }
+			}
+		};
+		const tareasGuardadasEnLocalStorage = [tareaInicial];
+
+		const nombreTareaActualizada = "Hacer ejercicio";
+
+		actualizarDatosTareaGuardada(nombreTareaActualizada);
+
+		const tareaActualizada = {
+			tarea: {
+				nombreTarea: "Hacer ejercicio",
+				clasesTarea: { "0": "tarea", "1": "tarea-pendiente" }
+			}
+		};
+		expect(tareasGuardadasEnLocalStorage).toEqual([tareaActualizada]);
 	});
 });
