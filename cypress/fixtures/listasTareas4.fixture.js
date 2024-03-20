@@ -46,13 +46,7 @@ export default `<main>
 
   <div class="contenedor-lista-tareas-pendientes" id="">
     <ul class="lista-tareas-pendientes">
-      <li class="tarea tarea-pendiente ">
-        <div class="contenedor-estado-tarea">
-          <input class="form-check-input estado-tarea" type="checkbox" id="flexCheckDefault">
-          <p class="nombre-tarea" style="color: rgb(73, 103, 68);">Hacer ejercicio</p>
-        </div>
-      </li>
-      <li class="tarea tarea-pendiente ">
+      <li class="tarea tarea-pendiente prioridad-3">
         <div class="contenedor-estado-tarea">
           <input class="form-check-input estado-tarea" type="checkbox" id="flexCheckDefault">
           <p class="nombre-tarea" style="color: rgb(73, 103, 68);">Hacer ejercicio</p>
