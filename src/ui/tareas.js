@@ -140,7 +140,6 @@ export function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
 	} else if(e.target.classList.contains("borrar-tarea")) {
 		borrarTarea($tareaSeleccionada);
 		eliminarTareaDeLocalStorage($tareaSeleccionada);
-		actualizarDatosTareaGuardada(nombreTarea);
 	} else {
 		return false;
 	}

@@ -79,6 +79,8 @@ export function eliminarTareaDeLocalStorage($tareaSeleccionada) {
 
 		return nombreTareaGuardada !== nombreTareaSeleccionada;
 	});
+
+	actualizarDatosTareaGuardada(nombreTareaSeleccionada);
 }
 
 export function eliminarTodasLasTareasDeLocalStorage(){
