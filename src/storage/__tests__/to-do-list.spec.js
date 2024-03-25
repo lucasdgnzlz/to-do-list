@@ -86,3 +86,25 @@ describe("actualizarDatosTareaGuardada", () => {
 		expect(JSON.parse(localStorage.getItem(`${DATA_A_BUSCAR}`))).toEqual(tareaActualizada);
 	});
 });
+
+describe("eliminarTareaDeLocalStorage", () => {
+	beforeEach(() => {
+		eliminarTodasLasTareasDeLocalStorage();
+	});
+
+	it("Elimina una tarea específica de localStorage", () => {
+		document.body.innerHTML = listasTareas3Fixture;
+
+		const CONTEXTO_TAREA = "nueva tarea";
+		const NOMBRE_TAREA = "Hacer ejercicio";
+		guardarTareasEnLocalStorage(CONTEXTO_TAREA, NOMBRE_TAREA);
+
+		const tareaARecibir = [{"tarea": {"clasesTarea": {"0": "tarea", "1": "tarea-pendiente"}, "nombreTarea": "Hacer ejercicio"}}];
+		const DATA_A_BUSCAR = "tareasGuardadas";
+		expect(JSON.parse(localStorage.getItem(`${DATA_A_BUSCAR}`))).toEqual(tareaARecibir);
+
+		const $tareaSeleccionada = document.querySelector(".tarea");
+		eliminarTareaDeLocalStorage($tareaSeleccionada);
+		expect(JSON.parse(localStorage.getItem(`${DATA_A_BUSCAR}`))).toEqual([]);
+	});
+});
