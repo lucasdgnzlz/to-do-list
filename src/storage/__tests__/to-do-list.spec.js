@@ -9,6 +9,7 @@ import "jest-localstorage-mock";
 import { guardarTareasEnLocalStorage, cargarTareasDeLocalStorage, actualizarDatosTareaGuardada, eliminarTareaDeLocalStorage, eliminarTodasLasTareasDeLocalStorage } from "../to-do-list";
 import listasTareas3Fixture from "../../../cypress/fixtures/listasTareas3.fixture";
 import listasTareas4Fixture from "../../../cypress/fixtures/listasTareas4.fixture";
+import listasTareas5Fixture from "../../../cypress/fixtures/listasTareas5.fixture";
 
 describe("guardarTareasEnLocalStorage", () => {
 	afterEach(() => {
@@ -92,6 +93,10 @@ describe("eliminarTareaDeLocalStorage", () => {
 		eliminarTodasLasTareasDeLocalStorage();
 	});
 
+	afterEach(() => {
+		eliminarTodasLasTareasDeLocalStorage();
+	});
+
 	it("Elimina una tarea específica de localStorage", () => {
 		document.body.innerHTML = listasTareas3Fixture;
 
@@ -105,6 +110,27 @@ describe("eliminarTareaDeLocalStorage", () => {
 
 		const $tareaSeleccionada = document.querySelector(".tarea");
 		eliminarTareaDeLocalStorage($tareaSeleccionada);
+		expect(JSON.parse(localStorage.getItem(`${DATA_A_BUSCAR}`))).toEqual([]);
+	});
+});
+
+describe("eliminarTodasLasTareasDeLocalStorage", () => {
+	it("", () => {
+		document.body.innerHTML = listasTareas5Fixture;
+
+		const CONTEXTO_PRIMER_TAREA = "nueva tarea";
+		const NOMBRE_PRIMER_TAREA = "Hacer ejercicio";
+		guardarTareasEnLocalStorage(CONTEXTO_PRIMER_TAREA, NOMBRE_PRIMER_TAREA);
+
+		const CONTEXTO_SEGUNDA_TAREA = "nueva tarea";
+		const NOMBRE_SEGUNDA_TAREA = "Pasear al perro";
+		guardarTareasEnLocalStorage(CONTEXTO_SEGUNDA_TAREA, NOMBRE_SEGUNDA_TAREA);
+
+		const tareaARecibir = [{"tarea": {"clasesTarea": {"0": "tarea", "1": "tarea-pendiente"}, "nombreTarea": "Hacer ejercicio"}}, {"tarea": {"clasesTarea": {"0": "tarea", "1": "tarea-pendiente"}, "nombreTarea": "Pasear al perro"}}];
+		const DATA_A_BUSCAR = "tareasGuardadas";
+
+		expect(JSON.parse(localStorage.getItem(`${DATA_A_BUSCAR}`))).toEqual(tareaARecibir);
+		eliminarTodasLasTareasDeLocalStorage();
 		expect(JSON.parse(localStorage.getItem(`${DATA_A_BUSCAR}`))).toEqual([]);
 	});
 });
