@@ -140,7 +140,6 @@ export function gestionarOpcionesDeLasTareas($tareaSeleccionada, e) {
 	} else if(e.target.classList.contains("borrar-tarea")) {
 		borrarTarea($tareaSeleccionada);
 		eliminarTareaDeLocalStorage($tareaSeleccionada);
-		actualizarDatosTareaGuardada(nombreTarea);
 	} else {
 		return false;
 	}
@@ -164,24 +163,24 @@ function agregarNivelDePrioridadATarea($tareaSeleccionada, nivelDePrioridad) {
 function cambiarColorNombreTareas($tareaSeleccionada) {
 	const $nombreTarea = $tareaSeleccionada.querySelector(".nombre-tarea");
 
-	if($tareaSeleccionada.classList.contains("prioridad-3")) {
+	if($tareaSeleccionada.classList.contains("prioridad-3") || 
+	$tareaSeleccionada.classList.contains("prioridad-2") || 
+	$tareaSeleccionada.classList.contains("prioridad-1")) {
 		$nombreTarea.style.color = "#ffffff";
-	} else if($tareaSeleccionada.classList.contains("prioridad-2")) {
-		$nombreTarea.style.color = "#ffffff";
-	} else if($tareaSeleccionada.classList.contains("prioridad-1")) {
-		$nombreTarea.style.color = "#ffffff";
+	} else {
+		$nombreTarea.style.color = "#496744";
 	}
 }
 
 function cambiarColorIconoOpcionesTareas($tareaSeleccionada) {
 	const $iconoOpcionesTarea = $tareaSeleccionada.querySelector(".icono-opciones-tareas");
 
-	if($tareaSeleccionada.classList.contains("prioridad-3")) {
+	if($tareaSeleccionada.classList.contains("prioridad-3") || 
+	$tareaSeleccionada.classList.contains("prioridad-2") || 
+	$tareaSeleccionada.classList.contains("prioridad-1")) {
 		$iconoOpcionesTarea.style.color = "#fff";
-	} else if($tareaSeleccionada.classList.contains("prioridad-2")) {
-		$iconoOpcionesTarea.style.color = "#fff";
-	} else if($tareaSeleccionada.classList.contains("prioridad-1")) {
-		$iconoOpcionesTarea.style.color = "#ffffff";
+	} else {
+		$iconoOpcionesTarea.style.color = "#496744";
 	}
 }
 
@@ -246,7 +245,7 @@ function agregarMismasClasesATareaNueva(contextoLista, $tareaSeleccionada) {
 	cambiarColorIconoOpcionesTareas($tareaNueva);
 }
 
-export function gestionarTareaReiniciada(e, $tareaSeleccionada){
+export function gestionarTareaReiniciada($tareaSeleccionada){
 	const listaALaQueAgregarTarea = "lista-tareas-pendientes";
 	const nombreTarea = $tareaSeleccionada.querySelector(".nombre-tarea").textContent;
 	
@@ -361,6 +360,8 @@ export function comprobarRepeticionDeTareas(nombreNuevaTarea) {
 		const nombreTarea = tarea.textContent;
 		if(nombreTarea === nombreNuevaTarea){
 			confirmacionDeRepeticion = true;
+		} else{
+			confirmacionDeRepeticion = false;
 		}
 	});
 

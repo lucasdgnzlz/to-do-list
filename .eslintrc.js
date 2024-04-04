@@ -22,6 +22,7 @@ module.exports = {
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
+	"ignorePatterns": ["babel.config.js", "jest.config.js"],
 	"rules": {
 		"indent": [
 			"error",
